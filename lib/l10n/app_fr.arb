@@ -1,0 +1,23 @@
+{
+  "menu": "Menu",
+  "homePage": "Page d'accueil",
+  "homePageHeader": "Détection de la leishmaniose cutanée",
+  "subtitle_homepage": "Aidez à diagnostiquer la leishmaniose chez votre patient\nd'un simple clic.",
+  "name": "Nom",
+  "nameHint": "Entrez votre nom",
+  "email": "Adresse électronique",
+  "emailHint": "Entrez votre adresse électronique",
+  "dateOfBirth": "Date de naissance",
+  "requiredField": "Ce champ est requis",
+  "submitInfo": "Soumettre des informations",
+  "changeLanguage": "Changer de langue",
+  "about": "Lorem Ipsum est simplement un texte factice de l'industrie de l'impression et de la composition. Lorem Ipsum est le texte factice standard de l'industrie depuis les années 1500, lorsqu'un imprimeur inconnu a pris une galère de type et l'a brouillée pour créer un livre spécimen de types. Il a non seulement survécu cinq siècles, mais aussi le saut à la composition électronique, restant essentiellement inchangé. Il a été popularisé dans les années 1960 avec la sortie des feuilles Letraset contenant des passages de Lorem Ipsum, et plus récemment avec des logiciels de publication assistée par ordinateur comme Aldus PageMaker, y compris des versions de Lorem Ipsum.",
+  "newCase": "Nouveau cas",
+  "unsavedCases": "Cas non enregistrés",
+  "savedCases": "Cas enregistrés",
+  "infromations": "Informations",
+  "howToUse": "Comment utiliser?",
+  "needHelp": "Besoin d'aide?",
+  "settings": "Paramètres",
+  "contactUs": "Contactez-nous"
+}
