@@ -1,4 +1,3 @@
-
 import 'package:detection_app/pages/new_case/new_case_image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -73,7 +72,15 @@ class _CameraPageState extends State<CameraPage> {
           directory = await getExternalStorageDirectory();
         }
       } else {
-        directory = await getApplicationDocumentsDirectory();
+        // directory = await getApplicationDocumentsDirectory();
+        final appDocDir = await getApplicationDocumentsDirectory();
+        final downloadsDir = Directory('${appDocDir.path}/Downloads');
+
+        // Create the directory if it doesn't exist
+        if (!await downloadsDir.exists()) {
+          await downloadsDir.create(recursive: true);
+        }
+        return downloadsDir.path;
       }
     } catch (e) {
       print('Could not access the downloads directory: $e');
@@ -86,11 +93,14 @@ class _CameraPageState extends State<CameraPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ImagePreviewPage(imageFile: _selectedImg!,onCancel: () {
-            setState(() {
-              _selectedImg = null; // Reset the selected image
-            });
-          },),
+          builder: (context) => ImagePreviewPage(
+            imageFile: _selectedImg!,
+            onCancel: () {
+              setState(() {
+                _selectedImg = null; // Reset the selected image
+              });
+            },
+          ),
         ),
       );
     }
@@ -192,7 +202,7 @@ class _CameraPageState extends State<CameraPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton( 
+            IconButton(
               icon: const Icon(Icons.close, color: Colors.white, size: 40),
               onPressed: () => Navigator.pop(context),
             ),
@@ -201,8 +211,7 @@ class _CameraPageState extends State<CameraPage> {
                   color: Colors.white, size: 40),
               onPressed: () async {
                 // TODO: Implement camera switch
-                if (_controller == null ||
-                    _controller!.value.isTakingPicture) {
+                if (_controller == null || _controller!.value.isTakingPicture) {
                   return; // Prevent switching if the camera is not initialized or is taking a picture
                 }
                 try {
@@ -221,14 +230,13 @@ class _CameraPageState extends State<CameraPage> {
                     return;
                   }
                   await _controller?.dispose();
-            
+
                   // Get the list of available cameras
-            
+
                   // Determine the new camera lens direction to switch to
                   CameraDescription? newCamera;
-                  final lensDirection =
-                      _controller!.description.lensDirection;
-            
+                  final lensDirection = _controller!.description.lensDirection;
+
                   if (lensDirection == CameraLensDirection.front) {
                     // Switch to back camera if available
                     newCamera = cameras.firstWhere((camera) =>
@@ -238,13 +246,13 @@ class _CameraPageState extends State<CameraPage> {
                     newCamera = cameras.firstWhere((camera) =>
                         camera.lensDirection == CameraLensDirection.front);
                   }
-            
+
                   // Initialize the new camera
                   _controller = CameraController(
                     newCamera,
                     ResolutionPreset.medium,
                   );
-            
+
                   // Reinitialize the camera
                   _initializeControllerFuture = _controller!.initialize();
                   setState(() {});
@@ -293,8 +301,7 @@ class _CameraPageState extends State<CameraPage> {
         FloatingActionButton(
           backgroundColor: const Color(0xFF2FCE90),
           shape: const CircleBorder(),
-          child: Icon(Icons.photo_camera_outlined,
-              color: textColor, size: 36),
+          child: Icon(Icons.photo_camera_outlined, color: textColor, size: 36),
           onPressed: () async {
             if (_controller == null || !_controller!.value.isInitialized) {
               ScaffoldMessenger.of(context).showSnackBar(

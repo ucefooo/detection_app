@@ -142,80 +142,95 @@ class _ModelViewerWithHotspotsState extends State<ModelViewerWithHotspots> {
           ar: false,
           autoRotate: false,
           cameraControls: true,
-          disableZoom: true,
-          disableTap: false,
+          disableZoom: false,
+          disableTap: true,
           disablePan: true,
-          maxCameraOrbit: '0deg 90deg auto',
-          minCameraOrbit: '0deg 90deg auto',
+          maxCameraOrbit: 'auto 90deg auto',
+          minCameraOrbit: 'auto 90deg auto',
         ),
-        Positioned(
-          top: 60,
-          left: 170,
-          child: StaticCircularHotspot(
-            id: 'head',
-            content: 'This is the head',
-            activeColor: Colors.blue.shade700,
-            isActive: widget.activeHotspotId == 'head',
-            onTap: widget.setActiveHotspot,
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: Positioned(
+        //     top:0,
+        //     left:0,
+        //     child: GestureDetector(
+        //       onTap: () => widget.setActiveHotspot('head'),
+        //       child: Container(
+        //         decoration: BoxDecoration(
+        //           color: Colors.transparent,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // Positioned(
+        //   top: 60,
+        //   left: 170,
+        //   child: StaticCircularHotspot(
+        //     id: 'head',
+        //     content: 'This is the head',
+        //     // activeColor: Colors.transparent,
+        //     isActive: widget.setActiveHotspot == 'head',
+        //     onTap: widget.setActiveHotspot,
+        //   ),
+        // ),
         Positioned(
           top: 140,
           left: 150,
           child: StaticCircularHotspot(
             id: 'chest',
             content: 'This is the chest',
-            inactiveColor:
-                Colors.lightBlue.shade500,
-            activeColor: Colors.blue.shade700,
+            // inactiveColor:
+            //     Colors.lightBlue.shade500,
+            // activeColor: Colors.blue.shade700,
             isActive: widget.activeHotspotId == 'chest',
             onTap: widget.setActiveHotspot,
           ),
         ),
-        Positioned(
-          top: 180,
-          left: 220,
-          child: StaticCircularHotspot(
-            id: 'back',
-            content: 'This is the back',
-            activeColor: Colors.blue.shade700,
-            isActive: widget.activeHotspotId == 'back',
-            onTap: widget.setActiveHotspot,
-          ),
-        ),
-        Positioned(
-          top: 250,
-          left: 100,
-          child: StaticCircularHotspot(
-            id: 'hand',
-            content: 'This is the hand',
-            activeColor: Colors.blue.shade700,
-            isActive: widget.activeHotspotId == 'hand',
-            onTap: widget.setActiveHotspot,
-          ),
-        ),
-        Positioned(
-          top: 260,
-          left: 230,
-          child: StaticCircularHotspot(
-            id: 'thigh',
-            content: 'This is the thigh',
-            activeColor: Colors.blue.shade700,
-            isActive: widget.activeHotspotId == 'thigh',
-            onTap: widget.setActiveHotspot,
-          ),
-        ),
-        Positioned(
-          top: 350,
-          left: 160,
-          child: StaticCircularHotspot(
-            id: 'leg',
-            content: 'This is the leg',
-            activeColor: Colors.blue.shade700,
-            isActive: widget.activeHotspotId == 'leg',
-            onTap: widget.setActiveHotspot,
-          ),
-        ),
+        // Positioned(
+        //   top: 180,
+        //   left: 220,
+        //   child: StaticCircularHotspot(
+        //     id: 'back',
+        //     content: 'This is the back',
+        //     activeColor: Colors.blue.shade700,
+        //     isActive: widget.activeHotspotId == 'back',
+        //     onTap: widget.setActiveHotspot,
+        //   ),
+        // ),
+        // Positioned(
+        //   top: 250,
+        //   left: 100,
+        //   child: StaticCircularHotspot(
+        //     id: 'hand',
+        //     content: 'This is the hand',
+        //     activeColor: Colors.blue.shade700,
+        //     isActive: widget.activeHotspotId == 'hand',
+        //     onTap: widget.setActiveHotspot,
+        //   ),
+        // ),
+        // Positioned(
+        //   top: 260,
+        //   left: 230,
+        //   child: StaticCircularHotspot(
+        //     id: 'thigh',
+        //     content: 'This is the thigh',
+        //     activeColor: Colors.blue.shade700,
+        //     isActive: widget.activeHotspotId == 'thigh',
+        //     onTap: widget.setActiveHotspot,
+        //   ),
+        // ),
+        // Positioned(
+        //   top: 350,
+        //   left: 160,
+        //   child: StaticCircularHotspot(
+        //     id: 'leg',
+        //     content: 'This is the leg',
+        //     activeColor: Colors.blue.shade700,
+        //     isActive: widget.activeHotspotId == 'leg',
+        //     onTap: widget.setActiveHotspot,
+        //   ),
+        // ),
       ],
     );
   }
@@ -236,8 +251,8 @@ class StaticCircularHotspot extends StatelessWidget {
     required this.content,
     required this.isActive,
     required this.onTap,
-    this.inactiveColor = Colors.lightBlue,
-    this.activeColor = Colors.blue,
+    this.inactiveColor = const Color.fromARGB(255, 193, 206, 218),
+    this.activeColor = const Color.fromARGB(255, 124, 132, 139),
   });
 
 
@@ -250,8 +265,8 @@ class StaticCircularHotspot extends StatelessWidget {
         GestureDetector(
           onTap: () => onTap(id),
           child: Container(
-            width: 24,
-            height: 24,
+            width: 20,
+            height: 20,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isActive ? activeColor : inactiveColor,

@@ -23,16 +23,42 @@ class ImagePreviewPage extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              Image.file(
-                imageFile,
-                fit: BoxFit.cover,
-              ),
+              // Image.file(
+              //   imageFile,
+              //   fit: BoxFit.cover,
+              // ),
+              _buildImageWidget(),
               _buildOverlay(),
               _buildControls(context),
             ],
           ),
         ),
       ),
+    );
+  }
+
+   Widget _buildImageWidget() {
+    return FutureBuilder<bool>(
+      future: imageFile.exists(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.data == true) {
+            return Image.file(
+              imageFile,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                print('Error loading image: $error');
+                return Center(child: Text('Error loading image: $error'));
+              },
+            );
+          } else {
+            print('Image file does not exist');
+            return Center(child: Text('Image file not found'));
+          }
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
