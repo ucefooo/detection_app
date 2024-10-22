@@ -1,6 +1,7 @@
 import 'package:detection_app/pages/new_case/new_case_result.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:detection_app/classes/language_constants.dart';
 
 class AnalyzeLoadingPage extends StatelessWidget {
   final File imageFile;
@@ -21,8 +22,8 @@ class AnalyzeLoadingPage extends StatelessWidget {
       children: [
         _buildHeader(context),
         _buildOverlay(),
-        _buildBottomBar(),
-        _buildBottomBarText(),
+        _buildBottomBar(context),
+        _buildBottomBarText(context),
         FloatingActionButton(
           onPressed: () {
             Navigator.push(
@@ -82,13 +83,17 @@ class AnalyzeLoadingPage extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text(
-                    "Are you sure you want to cancel the new test?",
+                  title: Text(
+                    translation(context).newCaseCancelTestPopUpTitle,
+                    // "Are you sure you want to cancel the new test?",
                     style:
                         TextStyle(fontSize: 16), // Adjust font size if needed
                   ),
                   content:
-                      const Text('Do you want to discard the current test?'),
+                      Text(
+                        translation(context).newCaseCancelTestPopUpContent,
+                        // 'Do you want to discard the current test?'
+                        ),
                   actions: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -107,12 +112,12 @@ class AnalyzeLoadingPage extends StatelessWidget {
                             ),
                             elevation: 0,
                           ),
-                          child: const Text(
-                            'Cancel test',
+                          child: Text(
+                            translation(context).newCaseCancelTestPopUpCancel,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -129,12 +134,12 @@ class AnalyzeLoadingPage extends StatelessWidget {
                             ),
                             elevation: 0,
                           ),
-                          child: const Text(
-                            'Continue',
+                          child: Text(
+                            translation(context).newCaseCancelTestPopUpContinue,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -146,22 +151,24 @@ class AnalyzeLoadingPage extends StatelessWidget {
             );
           },
         ),
-        const Text(
-          'Analyzing...',
-          style: TextStyle(fontSize: 20),
+        Text(
+          translation(context).newCaseAnalyzeLoadingTitle,
+          // 'Analyzing...',
+          style: const TextStyle(fontSize: 20),
         ),
         const SizedBox(width: 48), // Placeholder for symmetry
       ],
     );
   }
 
-  Widget _buildBottomBar() {
-    return const Padding(
-      padding: EdgeInsets.only(top: 30.0),
+  Widget _buildBottomBar(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0),
       child: Text(
-        'Analyzing your photo',
+        translation(context).newCaseAnalyzeLoadingSubtitle,
+        // 'Analyzing your photo',
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
             color: Color(0xFF00B57A)),
@@ -169,13 +176,14 @@ class AnalyzeLoadingPage extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomBarText() {
-    return const Padding(
-      padding: EdgeInsets.only(top: 20.0),
+  Widget _buildBottomBarText(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
       child: Text(
-        'please be patient,\nit may take some time...',
+        translation(context).newCaseAnalyzeLoadingContent,
+        // 'please be patient,\nit may take some time...',
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
           color: Color.fromARGB(255, 134, 134, 134),

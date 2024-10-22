@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class NewCasePage extends StatefulWidget {
   const NewCasePage({super.key});
@@ -11,20 +12,21 @@ class NewCasePage extends StatefulWidget {
 class _NewCasePageState extends State<NewCasePage> {
   String? activeHotspotId;
 
-  void setActiveHotspot(String id) {
+  void setActiveHotspot(String? id) {
     setState(() {
       activeHotspotId = (activeHotspotId == id) ? null : id;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           child: Text(
-            'Please select the area of the sickness before taking a photo:',
+            translation(context).newCasePageTitle,
+            // 'Please select the area of the sickness before taking a photo:',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -47,11 +49,13 @@ class _NewCasePageState extends State<NewCasePage> {
         //   ),
         // ),
         Expanded(
-          child: ModelViewerWithHotspots(activeHotspotId: activeHotspotId,setActiveHotspot:setActiveHotspot),
+          child: ModelViewerWithHotspots(
+              activeHotspotId: activeHotspotId,
+              setActiveHotspot: setActiveHotspot),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          child: ButtonRow(activeHotspotId: activeHotspotId),
+          child: ButtonRow(activeHotspotId: activeHotspotId,activeHotspotIdSetter: setActiveHotspot),
         ),
       ],
     );
@@ -60,7 +64,8 @@ class _NewCasePageState extends State<NewCasePage> {
 
 class ButtonRow extends StatefulWidget {
   final String? activeHotspotId;
-  const ButtonRow({super.key,required this.activeHotspotId});
+  final Function(String?) activeHotspotIdSetter;
+  const ButtonRow({super.key, required this.activeHotspotId, required this.activeHotspotIdSetter});
   @override
   State<ButtonRow> createState() => _ButtonRowState();
 }
@@ -74,6 +79,7 @@ class _ButtonRowState extends State<ButtonRow> {
         ElevatedButton(
           onPressed: () {
             // Add cancel functionality here
+            widget.activeHotspotIdSetter(widget.activeHotspotId);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFFC5F5F),
@@ -84,15 +90,17 @@ class _ButtonRowState extends State<ButtonRow> {
             ),
             elevation: 0,
           ),
-          child: const Text('Cancel',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+          child: Text(translation(context).newCasePageCancelButton,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
         ),
         // SizedBox(width: 10), // Add small gap between buttons
         ElevatedButton(
-          onPressed: widget.activeHotspotId == null ? null : () {
-            // Add next step functionality here
-            Navigator.of(context, rootNavigator: true).pushNamed('case2');
-          },
+          onPressed: widget.activeHotspotId == null
+              ? null
+              : () {
+                  // Add next step functionality here
+                  Navigator.of(context, rootNavigator: true).pushNamed('case2');
+                },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF00B57A),
             foregroundColor: Colors.white,
@@ -102,14 +110,15 @@ class _ButtonRowState extends State<ButtonRow> {
             ),
             elevation: 0,
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Next step',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-              SizedBox(width: 8),
-              Icon(Icons.arrow_forward_ios, size: 20),
+              Text(translation(context).newCasePageNextStepButton,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w500)),
+              const SizedBox(width: 8),
+              const Icon(Icons.arrow_forward_ios, size: 20),
             ],
           ),
         ),
@@ -121,7 +130,10 @@ class _ButtonRowState extends State<ButtonRow> {
 class ModelViewerWithHotspots extends StatefulWidget {
   final String? activeHotspotId;
   final Function(String) setActiveHotspot;
-  const ModelViewerWithHotspots({super.key, required this.activeHotspotId,required this.setActiveHotspot});
+  const ModelViewerWithHotspots(
+      {super.key,
+      required this.activeHotspotId,
+      required this.setActiveHotspot});
 
   @override
   _ModelViewerWithHotspotsState createState() =>
@@ -129,9 +141,6 @@ class ModelViewerWithHotspots extends StatefulWidget {
 }
 
 class _ModelViewerWithHotspotsState extends State<ModelViewerWithHotspots> {
-
-  
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -234,7 +243,6 @@ class _ModelViewerWithHotspotsState extends State<ModelViewerWithHotspots> {
       ],
     );
   }
-
 }
 
 class StaticCircularHotspot extends StatelessWidget {
@@ -254,8 +262,6 @@ class StaticCircularHotspot extends StatelessWidget {
     this.inactiveColor = const Color.fromARGB(255, 193, 206, 218),
     this.activeColor = const Color.fromARGB(255, 124, 132, 139),
   });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -302,7 +308,7 @@ class StaticCircularHotspot extends StatelessWidget {
               ),
               child: Text(
                 content,
-                style: TextStyle(fontSize: 12,color: Colors.black),
+                style: const TextStyle(fontSize: 12, color: Colors.black),
                 textAlign: TextAlign.center,
               ),
             ),

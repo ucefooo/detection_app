@@ -6,6 +6,8 @@ import 'package:path_provider/path_provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 import 'dart:io';
+import 'package:detection_app/classes/language_constants.dart';
+
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -181,10 +183,11 @@ class _CameraPageState extends State<CameraPage> {
             ),
           ),
           const SizedBox(height: 20.0),
-          const Text(
-            'Please focus the desired area\ninside the box for better analysis',
+          Text(
+            translation(context).newCasePageCameraOverlayText,
+            // 'Please focus the desired area\ninside the box for better analysis',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.orange, fontSize: 16),
+            style: const TextStyle(color: Colors.orange, fontSize: 16),
           ),
         ],
       ),
@@ -224,8 +227,8 @@ class _CameraPageState extends State<CameraPage> {
                   }
                   if (cameras.length < 2) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Only one camera available')),
+                      SnackBar(
+                          content: Text( translation(context).newCasePageCameraSwitchError)),
                     );
                     return;
                   }
@@ -287,9 +290,9 @@ class _CameraPageState extends State<CameraPage> {
           ),
         ),
         // const SizedBox(height: 5),
-        const Text(
-          'Gallery',
-          style: TextStyle(color: Color(0xFF2FCE90)),
+        Text(
+          translation(context).newCasePageCameraGalleryButton,
+          style: const TextStyle(color: Color(0xFF2FCE90)),
         ),
       ],
     );
@@ -372,9 +375,9 @@ class _CameraPageState extends State<CameraPage> {
           ),
         ),
         // const SizedBox(height: 5),
-        const Text(
-          'Tips',
-          style: TextStyle(color: Color(0xFF2FCE90), fontSize: 16),
+        Text(
+          translation(context).newCasePageCameraTipsButton,
+          style: const TextStyle(color: Color(0xFF2FCE90), fontSize: 16),
         ),
       ],
     );

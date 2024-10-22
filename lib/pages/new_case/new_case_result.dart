@@ -4,6 +4,7 @@ import 'package:detection_app/result.dart';
 import 'package:detection_app/router/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:detection_app/classes/language_constants.dart';
 
 class NewCaseResult extends StatefulWidget {
   final File imageFile;
@@ -40,13 +41,14 @@ class _NewCaseResultState extends State<NewCaseResult> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: const Text(
-                                "Are you sure you want to cancel the new test?",
-                                style: TextStyle(
+                              title: Text(
+                                translation(context)
+                                    .newCaseCancelTestPopUpTitle,
+                                style: const TextStyle(
                                     fontSize: 16), // Adjust font size if needed
                               ),
-                              content: const Text(
-                                  'Do you want to discard the current test?'),
+                              content: Text(
+                                  translation(context).newCaseCancelTestPopUpContent,),
                               actions: <Widget>[
                                 Row(
                                   mainAxisAlignment:
@@ -68,12 +70,12 @@ class _NewCaseResultState extends State<NewCaseResult> {
                                         ),
                                         elevation: 0,
                                       ),
-                                      child: const Text(
-                                        'Cancel test',
+                                      child: Text(
+                            translation(context).newCaseCancelTestPopUpCancel,
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500),
                                       ),
@@ -94,12 +96,12 @@ class _NewCaseResultState extends State<NewCaseResult> {
                                         ),
                                         elevation: 0,
                                       ),
-                                      child: const Text(
-                                        'Continue',
+                                      child: Text(
+                                        translation(context).newCaseCancelTestPopUpContinue,
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w500),
                                       ),
@@ -151,8 +153,9 @@ class _NewCaseResultState extends State<NewCaseResult> {
                           ),
                           child: Center(
                             child: Text(
-                              '${widget.results} of lechmaniasis',
-                              style: TextStyle(
+                              // '${widget.results} of lechmaniasis',
+                              '${widget.results} ${translation(context).newCaseResultOfLechmaniasis}',
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -163,24 +166,25 @@ class _NewCaseResultState extends State<NewCaseResult> {
                   ),
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    child: Divider(color: Color(0xFF00B57A), thickness: 2),
+                    child: const Divider(color: Color(0xFF00B57A), thickness: 2),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Results:',
-                        style: TextStyle(
+                      Text(
+                        translation(context).newCaseResultResults,
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'After analysis it may be ${widget.results} of leishmaniasis.',
+                        '${translation(context).newCaseResultAfterAnalysis} ${widget.results} ${translation(context).newCaseResultOfLechmaniasis}.',
+                        // 'After analysis it may be ${widget.results} of leishmaniasis.',
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w500),
                       ),
@@ -197,11 +201,12 @@ class _NewCaseResultState extends State<NewCaseResult> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text(
-                      'Note: Any results above 50% indicate a high probability of leishmaniasis detection and should be followed by a confirmatory test in a clinical setting.',
+                      translation(context).newCaseResultNote,
+                      // 'Note: Any results above 50% indicate a high probability of leishmaniasis detection and should be followed by a confirmatory test in a clinical setting.',
                       style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Padding(
@@ -213,7 +218,7 @@ class _NewCaseResultState extends State<NewCaseResult> {
                         //
                         CustomButton(
                           backgroundColor: Colors.red,
-                          text: 'Re-do test',
+                          text: translation(context).newCaseResultRedoTest,
                           onPressed: () {
                             //implement the save to database functionality here
                             setState(() {
@@ -233,7 +238,7 @@ class _NewCaseResultState extends State<NewCaseResult> {
                         ),
                         CustomButton(
                           backgroundColor: const Color(0xFF00B57A),
-                          text: 'Finish test',
+                          text: translation(context).newCaseResultFinishTest,
                           onPressed: () {
                             //implement the save to database functionality here
                             setState(() {
@@ -258,7 +263,7 @@ class _NewCaseResultState extends State<NewCaseResult> {
                         ),
                         CustomButton(
                           backgroundColor: Colors.blue[600]!,
-                          text: 'Save results',
+                          text: translation(context).newCaseResultSaveResults,
                           onPressed: () {
                             //implement the save before
                             setState(() {

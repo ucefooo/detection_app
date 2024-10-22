@@ -1,3 +1,4 @@
+import 'package:detection_app/classes/language_constants.dart';
 import 'package:detection_app/pages/new_case/new_case_lodaing_analyze.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -37,7 +38,7 @@ class ImagePreviewPage extends StatelessWidget {
     );
   }
 
-   Widget _buildImageWidget() {
+  Widget _buildImageWidget() {
     return FutureBuilder<bool>(
       future: imageFile.exists(),
       builder: (context, snapshot) {
@@ -90,7 +91,7 @@ class ImagePreviewPage extends StatelessWidget {
           },
         ),
         Text(
-          'Image Preview',
+          translation(context).newCaseImagePreviewTitle,
           style: const TextStyle(color: Colors.black, fontSize: 20),
         ),
         const SizedBox(width: 48), // Placeholder for symmetry
@@ -130,7 +131,9 @@ class ImagePreviewPage extends StatelessWidget {
                     ),
                     elevation: 0,
                   ),
-                  child: const Text('Re-take photo',
+                  child: Text(
+                      translation(context).newCaseImagePreviewRetakePhoto,
+                      // 'Re-take photo',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 ),
@@ -157,15 +160,17 @@ class ImagePreviewPage extends StatelessWidget {
                     ),
                     elevation: 0,
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('Analyze',
-                          style: TextStyle(
+                      Text(
+                      translation(context).newCaseImagePreviewAnalyze,
+                        // 'Analyze',
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w500)),
-                      SizedBox(width: 8),
-                      Icon(Icons.arrow_forward_ios, size: 20),
+                      const SizedBox(width: 8),
+                      const Icon(Icons.arrow_forward_ios, size: 20),
                     ],
                   ),
                 ),
