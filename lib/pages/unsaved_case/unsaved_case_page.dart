@@ -3,6 +3,7 @@ import 'package:detection_app/boxes.dart';
 import 'package:detection_app/pages/unsaved_case/unsaved_case_result.dart';
 import 'package:detection_app/pages/utils/date_fomat.dart';
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class UnsavedCasePage extends StatefulWidget {
   const UnsavedCasePage({super.key});
@@ -35,10 +36,10 @@ class _UnsavedCasePageState extends State<UnsavedCasePage> {
             child: ListView(
               children: [
                 sortedEntries.isEmpty
-                    ? const Center(
+                    ? Center(
                         child: Text(
-                          'No unsaved cases',
-                          style: TextStyle(
+                          translation(context).unsavedCasesNosavedCases,
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -68,11 +69,11 @@ class _UnsavedCasePageState extends State<UnsavedCasePage> {
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Note: Only the most recent 20 cases are stored here. Please save any important cases to avoid data loss.',
-            style: TextStyle(
+            translation(context).unsavedCasesNote,
+            style: const TextStyle(
                 fontSize: 12, fontWeight: FontWeight.bold),
           ),
         ),
@@ -120,7 +121,7 @@ class PossibilityCard extends StatelessWidget {
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 4,
-                offset: Offset(0, 2),
+                offset: const Offset(0, 2),
               ),
             ],
           ),
@@ -156,21 +157,21 @@ class PossibilityCard extends StatelessWidget {
                   children: [
                     Text(
                       possibility,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       date,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
                     ),
                   ],
                 ),
-                Icon(
+                const Icon(
                   Icons.arrow_forward_ios_outlined,
                   color: Color(0xFF00B57A),
                   size: 40,

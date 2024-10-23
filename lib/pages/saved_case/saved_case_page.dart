@@ -3,6 +3,7 @@ import 'package:detection_app/boxes.dart';
 import 'package:detection_app/pages/saved_case/saved_case_result.dart';
 import 'package:detection_app/pages/utils/date_fomat.dart';
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class SavedCasePage extends StatefulWidget {
   const SavedCasePage({super.key});
@@ -30,10 +31,10 @@ class _SavedCasePageState extends State<SavedCasePage> {
       child: Column(
         children: [
           sortedEntries.isEmpty
-              ? const Center(
+              ? Center(
                   child: Text(
-                    'No saved cases',
-                    style: TextStyle(
+                    translation(context).savedCasesNosavedcases,
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -103,7 +104,7 @@ class PossibilityCard extends StatelessWidget {
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
                 blurRadius: 4,
-                offset: Offset(0, 2),
+                offset: const Offset(0, 2),
               ),
             ],
           ),
@@ -139,21 +140,21 @@ class PossibilityCard extends StatelessWidget {
                   children: [
                     Text(
                       possibility,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       date,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
                     ),
                   ],
                 ),
-                Icon(
+                const Icon(
                   Icons.arrow_forward_ios_outlined,
                   color: Color(0xFF00B57A),
                   size: 40,

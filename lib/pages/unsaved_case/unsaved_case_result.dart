@@ -4,6 +4,7 @@ import 'package:detection_app/result.dart';
 import 'package:detection_app/router/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:detection_app/classes/language_constants.dart';
 
 class UnsavedCaseResult extends StatefulWidget {
   final File imageFile;
@@ -80,7 +81,7 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                           ),
                           child: Center(
                             child: Text(
-                              '${widget.results} of lechmaniasis',
+                              '${widget.results} ${translation(context).newCaseResultOfLechmaniasis}',
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
@@ -92,24 +93,25 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                   ),
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    child: Divider(color: Color(0xFF00B57A), thickness: 2),
+                    child: const Divider(color: Color(0xFF00B57A), thickness: 2),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Results:',
-                        style: TextStyle(
+                      Text(
+                        translation(context).newCaseResultResults,
+                        // 'Results:',
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 8.0),
                       Text(
-                        'After analysis it may be ${widget.results} of leishmaniasis.',
+                        '${translation(context).newCaseResultAfterAnalysis} ${widget.results} ${translation(context).newCaseResultOfLechmaniasis}.',
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w500),
                       ),
@@ -121,13 +123,12 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
                   child: Text(
-                    'Note: Any results above 50% indicate a high probability of leishmaniasis detection and should be followed by a confirmatory test in a clinical setting.',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
+                    translation(context).newCaseResultNote,
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
@@ -139,7 +140,7 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                       //
                       CustomButton(
                         backgroundColor: Colors.red,
-                        text: 'Re-do test',
+                        text: translation(context).newCaseResultRedoTest,
                         onPressed: () {
                           //implement the save to database functionality here
 
@@ -156,21 +157,24 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                       ),
                       CustomButton(
                         backgroundColor: const Color(0xFF00B57A),
-                        text: 'Save result',
+                        text: translation(context).newCaseResultSaveResults,
                         onPressed: () async {
                           //implement the save to database functionality here
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: const Text(
-                                  "Are you sure you want to save this test?",
-                                  style: TextStyle(
+                                title: Text(
+                                  translation(context).newCaseResultSaveTest,
+                                  // "Are you sure you want to save this test?",
+                                  style: const TextStyle(
                                       fontSize:
                                           16), // Adjust font size if needed
                                 ),
-                                content: const Text(
-                                    'Do you want to saved the current test?'),
+                                content: Text(
+                                  translation(context)
+                                      .newCaseResultSaveTestContent,
+                                ),
                                 actions: <Widget>[
                                   Row(
                                     mainAxisAlignment:
@@ -192,12 +196,13 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                                           ),
                                           elevation: 0,
                                         ),
-                                        child: const Text(
-                                          'Cancel',
+                                        child: Text(
+                                          translation(context)
+                                              .newCasePageCancelButton,
                                           textAlign: TextAlign.center,
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -241,12 +246,13 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                                           ),
                                           elevation: 0,
                                         ),
-                                        child: const Text(
-                                          'Save test',
+                                        child: Text(
+                                          translation(context)
+                                              .unsavedCaseResultSaveTest,
                                           textAlign: TextAlign.center,
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w500),
                                         ),

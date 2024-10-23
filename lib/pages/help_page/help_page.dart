@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
+import 'package:detection_app/classes/language_constants.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({super.key});
@@ -25,8 +25,8 @@ class _HelpPageState extends State<HelpPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text('Please fill in all fields'),
+          title: Text(translation(context).error),
+          content: Text(translation(context).fillAllFields),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -81,7 +81,7 @@ class _HelpPageState extends State<HelpPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Contact us:',
+          translation(context).helpPageTitle,
           style: TextStyle(color: textColor),
         ),
         backgroundColor: bgColor,
@@ -95,17 +95,19 @@ class _HelpPageState extends State<HelpPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    _buildTextField(_nameController, 'Name', Icons.person),
+                    _buildTextField(_nameController,
+                        translation(context).nameContactUs, Icons.person),
                     const SizedBox(height: 16),
-                    _buildTextField(
-                        _phoneController, 'Phone Number', Icons.phone,
+                    _buildTextField(_phoneController,
+                        translation(context).phoneContactUs, Icons.phone,
                         keyboardType: TextInputType.phone),
                     const SizedBox(height: 16),
-                    _buildTextField(_emailController, 'Email', Icons.email,
+                    _buildTextField(_emailController,
+                        translation(context).emailContactUs, Icons.email,
                         keyboardType: TextInputType.emailAddress),
                     const SizedBox(height: 16),
-                    _buildTextField(
-                        _messageController, 'Message', Icons.message,
+                    _buildTextField(_messageController,
+                        translation(context).messageContactUs, Icons.message,
                         maxLines: 3),
                     const SizedBox(height: 24),
                   ],
@@ -122,9 +124,9 @@ class _HelpPageState extends State<HelpPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: const Text(
-                'Send message',
-                style: TextStyle(fontSize: 22.0),
+              child: Text(
+                translation(context).sendContactUs,
+                style: const TextStyle(fontSize: 22.0),
               ),
             ),
           ],
@@ -186,18 +188,18 @@ class _HelpPageState extends State<HelpPage> {
       }),
     );
     if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-          'Email sent',
-          style: TextStyle(color: Colors.white, fontSize: 20.0),
+          translation(context).emailSent,
+          style: const TextStyle(color: Colors.white, fontSize: 20.0),
         ),
         backgroundColor: Color(0xFF00B57A),
       ));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-          'Email not send, please try again later',
-          style: TextStyle(color: Colors.white, fontSize: 20.0),
+          translation(context).emailNotSent,
+          style: const TextStyle(color: Colors.white, fontSize: 20.0),
         ),
         backgroundColor: Colors.red,
       ));

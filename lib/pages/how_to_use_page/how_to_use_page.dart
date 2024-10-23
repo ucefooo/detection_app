@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class HowToUsePage extends StatefulWidget {
-  const HowToUsePage({Key? key}) : super(key: key);
+  const HowToUsePage({super.key});
 
   @override
   _HowToUsePageState createState() => _HowToUsePageState();
@@ -44,72 +45,71 @@ class _HowToUsePageState extends State<HowToUsePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'How to Use Our Application',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
+            Text(
+              translation(context).howToUseHeader,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Follow these steps to use our application:',
-              style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+            Text(
+              translation(context).howToUseInstructions,
+              style: const TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
             ),
             const SizedBox(height: 8),
-            _buildClickableItem('1. Access the menu'),
-            _buildClickableItem('2. Go to "New Case"'),
-            _buildClickableItem('3. Choose a body part'),
-            _buildClickableItem('4. Click "Next"'),
-            _buildClickableItem('5. Take a photo or choose from gallery'),
-            const Text(
-              '6. You can retake the photo or click "Analyze"',
-              style: TextStyle(fontSize: 16),
+            _buildClickableItem(translation(context).howToUseStep1),
+            _buildClickableItem(translation(context).howToUseStep2),
+            _buildClickableItem(translation(context).howToUseStep3),
+            _buildClickableItem(translation(context).howToUseStep4),
+            _buildClickableItem(translation(context).howToUseStep5),
+            Text(
+              translation(context).howToUseStep6,
+              style: const TextStyle(fontSize: 16),
             ),
-            const Text(
-              '7. Wait for the result',
-              style: TextStyle(fontSize: 16),
+            Text(
+              translation(context).howToUseStep7,
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'After receiving the result, you can:',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Text(
+              translation(context).howToUseStep8,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            _buildClickableItem('• Click "Re-do Test" to start over'),
-            _buildClickableItem('• Click "Finish Test" to return to homepage'),
-            _buildClickableItem('• Click "Save case" to save the result'),
+            _buildClickableItem(translation(context).howToUseRedoTest),
+            _buildClickableItem(translation(context).howToUseSaveCase),
+            _buildClickableItem(translation(context).howToUseShareResults),
             const SizedBox(height: 8),
-            const Text(
-              'Note: Clicking "Finish" or "Re-do Test" won\'t save the test.',
-              style: TextStyle(fontSize: 16, color: Colors.red, fontStyle: FontStyle.italic),
+            Text(
+              translation(context).howToUseNote,
+              style: const TextStyle(fontSize: 16, color: Colors.red, fontStyle: FontStyle.italic),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Additional Features:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+            Text(
+              translation(context).howToUseAdditionalFeatures,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
             ),
-            _buildClickableItem('• Access "Saved cases" in the menu'),
-            const Text(
-              '  Review, unsave, or share saved results',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            _buildClickableItem(translation(context).howToUseSavedCases),
+            Text(
+              translation(context).howToUseSavedCasesInstructions,
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            _buildClickableItem('• Access "Unsaved cases" in the menu'),
-            const Text(
-              '  View and optionally save unsaved cases',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            _buildClickableItem(translation(context).howToUseUnsavedCases),
+            Text(
+              translation(context).howToUseUnsavedCasesInstructions,
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            _buildClickableItem('• Use "Need help" in the menu'),
-            const Text(
-              '  Send us a message if you need help',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            _buildClickableItem(translation(context).howToUseNeedHelp),
+            Text(
+              translation(context).howToUseNeedHelpInstructions,
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            _buildClickableItem('• Change Language'),
-            const Text(
-              '  Switch between Arabic, English, or French in settings\n'
-              '  or use the button at the top of the app',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            _buildClickableItem(translation(context).howToUseChangeLanguage),
+            Text(
+              translation(context).howToUseChangeLanguageInstructions,
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            _buildClickableItem('• Choose Theme'),
-            const Text(
-              '  Select between Light or Dark mode in settings',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            _buildClickableItem(translation(context).howToUseChooseTheme),
+            Text(
+              translation(context).howToUseChooseThemeInstructions,
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
           ],
         ),
