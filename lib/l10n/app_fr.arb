@@ -92,6 +92,13 @@
   "error": "Erreur",
   "fillAllFields": "Veuillez remplir tous les champs",
   "darkMode": "Mode sombre",
+  "newCasePageCameraTipsTitle": "Comment prendre une bonne photo",
+  "newCasePageCameraTipsClose": "Compris",
+  "newCasePageCameraGuidelineText": "Zone de mise au point",
+  "newCasePageCameraTips1": "Centrez la zone infectée",
+  "newCasePageCameraTips2": "Assurez-vous d'avoir une bonne lumière",
+  "newCasePageCameraTips3": "Garder la caméra stable",
+  "newCasePageCameraTips4": "Maintenir une bonne distance",
 
   "test": "test"
 }

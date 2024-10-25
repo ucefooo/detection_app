@@ -92,6 +92,13 @@
   "error": "Error",
   "fillAllFields": "Please fill all fields",
   "darkMode": "Dark Mode",
+  "newCasePageCameraTipsTitle": "How to take a Good Photo",
+  "newCasePageCameraTipsClose": "Got it",
+  "newCasePageCameraGuidelineText": "Focus Area",
+  "newCasePageCameraTips1": "Center the infected area",
+  "newCasePageCameraTips2": "Ensure good lighting",
+  "newCasePageCameraTips3": "Keep the camera steady",
+  "newCasePageCameraTips4": "Maintain proper distance",
 
   "test": "test"
 }

@@ -92,6 +92,13 @@
   "error": "خطأ",
   "fillAllFields": "يرجى ملء جميع الحقول",
   "darkMode": "الوضع الداكن",
+  "newCasePageCameraTipsTitle": "كيفية التقاط صورة جيدة",
+  "newCasePageCameraTipsClose": "فهمت",
+  "newCasePageCameraGuidelineText": "منطقة التركيز",
+  "newCasePageCameraTips1": "قم بتوجيه الكاميرا نحو المنطقة المصابة",
+  "newCasePageCameraTips2": "تأكد من وجود إضاءة جيدة",
+  "newCasePageCameraTips3": "تأكد من أن المنطقة المصابة واضحة",
+  "newCasePageCameraTips4": "حافظ على مسافة جيدة",
 
   "test": "test"
 }

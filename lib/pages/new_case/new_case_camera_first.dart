@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:detection_app/pages/new_case/new_case_image_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -7,7 +9,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'dart:io';
 import 'package:detection_app/classes/language_constants.dart';
-
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -213,7 +214,6 @@ class _CameraPageState extends State<CameraPage> {
               icon: const Icon(Icons.flip_camera_ios_outlined,
                   color: Colors.white, size: 40),
               onPressed: () async {
-                // TODO: Implement camera switch
                 if (_controller == null || _controller!.value.isTakingPicture) {
                   return; // Prevent switching if the camera is not initialized or is taking a picture
                 }
@@ -228,7 +228,8 @@ class _CameraPageState extends State<CameraPage> {
                   if (cameras.length < 2) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                          content: Text( translation(context).newCasePageCameraSwitchError)),
+                          content: Text(translation(context)
+                              .newCasePageCameraSwitchError)),
                     );
                     return;
                   }
@@ -278,9 +279,8 @@ class _CameraPageState extends State<CameraPage> {
         InkWell(
           onTap: _pickFromGallery,
           child: Container(
-            width: 50, // Set the width and height for the square button
+            width: 50,
             height: 50,
-            // color: Colors.black,
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xFF2FCE90), width: 2),
               borderRadius: BorderRadius.circular(15),
@@ -289,7 +289,6 @@ class _CameraPageState extends State<CameraPage> {
             child: const Icon(Icons.photo, color: Color(0xFF2FCE90)),
           ),
         ),
-        // const SizedBox(height: 5),
         Text(
           translation(context).newCasePageCameraGalleryButton,
           style: const TextStyle(color: Color(0xFF2FCE90)),
@@ -327,10 +326,9 @@ class _CameraPageState extends State<CameraPage> {
               await File(image.path).copy(filePath);
               await File(image.path).delete();
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Picture saved to $filePath')),
-              );
-              // TODO: Handle the captured image
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(content: Text('Picture saved to $filePath')),
+              // );
               setState(() {
                 _selectedImg = File(filePath);
               });
@@ -353,15 +351,104 @@ class _CameraPageState extends State<CameraPage> {
     );
   }
 
+  void _popUpTips() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  translation(context).newCasePageCameraTipsTitle,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                CustomPaint(
+                  size: const Size(250, 240),
+                  painter: GuidelinePainter(context),
+                ),
+                const SizedBox(height: 20),
+                ...buildTipsList(context),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2FCE90),
+                    minimumSize: const Size(double.infinity, 45),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    translation(context).newCasePageCameraTipsClose,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  List<Widget> buildTipsList(BuildContext context) {
+    return [
+      buildTipItem(context, '1', translation(context).newCasePageCameraTips1),
+      buildTipItem(context, '2', translation(context).newCasePageCameraTips2),
+      buildTipItem(context, '3', translation(context).newCasePageCameraTips3),
+      buildTipItem(context, '4', translation(context).newCasePageCameraTips4),
+    ];
+  }
+
+  Widget buildTipItem(BuildContext context, String number, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: const Color(0xFF2FCE90).withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Color(0xFF2FCE90),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(text),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildTipsButton() {
     return Column(
       children: [
         InkWell(
-          onTap: _pickFromGallery,
+          onTap: _popUpTips,
           child: Container(
-            width: 50, // Set the width and height for the square button
+            width: 50,
             height: 50,
-            // color: Colors.black,
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xFF2FCE90), width: 2),
               borderRadius: BorderRadius.circular(25),
@@ -374,7 +461,6 @@ class _CameraPageState extends State<CameraPage> {
             ),
           ),
         ),
-        // const SizedBox(height: 5),
         Text(
           translation(context).newCasePageCameraTipsButton,
           style: const TextStyle(color: Color(0xFF2FCE90), fontSize: 16),
@@ -399,56 +485,9 @@ class _CameraPageState extends State<CameraPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                // TextButton(
-                //   onPressed: _pickFromGallery,
-                //   child: const Text('gallery',
-                //       style: TextStyle(color: Colors.black)),
-                // ),
                 _buildGalleryButton(),
                 _buildCameraButton(textColor),
                 buildTipsButton(),
-                // FloatingActionButton(
-                //   backgroundColor: Colors.green,
-                //   child: const Icon(Icons.camera, size: 36),
-                //   onPressed: () async {
-                //     if (_controller == null ||
-                //         !_controller!.value.isInitialized) {
-                //       ScaffoldMessenger.of(context).showSnackBar(
-                //         const SnackBar(
-                //             content: Text('Error: Camera not initialized')),
-                //       );
-                //       return;
-                //     }
-
-                //     try {
-                //       final image = await _controller!.takePicture();
-                //       final String? downloadsPath = await _getDownloadsPath();
-                //       if (downloadsPath == null) {
-                //         throw Exception(
-                //             'Could not access the downloads directory');
-                //       }
-
-                //       final String fileName =
-                //           'photo_${DateTime.now().millisecondsSinceEpoch}.jpg';
-                //       final String filePath =
-                //           path.join(downloadsPath, fileName);
-
-                //       await File(image.path).copy(filePath);
-                //       await File(image.path).delete();
-
-                //       ScaffoldMessenger.of(context).showSnackBar(
-                //         SnackBar(content: Text('Picture saved to $filePath')),
-                //       );
-                //       // TODO: Handle the captured image
-                //       print('Picture saved to ${image.path}');
-                //     } catch (e) {
-                //       print('Error taking picture: $e');
-                //       ScaffoldMessenger.of(context).showSnackBar(
-                //         SnackBar(content: Text('Error taking picture: $e')),
-                //       );
-                //     }
-                //   },
-                // ),
               ],
             ),
           ],
@@ -456,4 +495,157 @@ class _CameraPageState extends State<CameraPage> {
       ),
     );
   }
+}
+
+class GuidelinePainter extends CustomPainter {
+  final BuildContext context;
+
+  GuidelinePainter(this.context);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final backgroundPaint = Paint()
+      ..color = const Color(0xFF2FCE90).withOpacity(0.2);
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      backgroundPaint,
+    );
+
+    final rect = Rect.fromLTWH(
+      size.width * 0.2,
+      size.height * 0.2,
+      size.width * 0.6,
+      size.height * 0.6,
+    );
+
+    final paint = Paint()
+      ..color = const Color(0xFF2FCE90)
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
+
+    const dashWidth = 5.0;
+    const dashSpace = 1.0;
+    final Path dashedPath = Path();
+    bool shouldDraw = true;
+
+    for (double i = rect.left; i < rect.right; i += dashWidth + dashSpace) {
+      if (shouldDraw) {
+        dashedPath.moveTo(i, rect.top);
+        dashedPath.lineTo(min(i + dashWidth, rect.right), rect.top);
+      }
+      shouldDraw = !shouldDraw;
+    }
+
+    shouldDraw = true;
+    for (double i = rect.top; i < rect.bottom; i += dashWidth + dashSpace) {
+      if (shouldDraw) {
+        dashedPath.moveTo(rect.right, i);
+        dashedPath.lineTo(rect.right, min(i + dashWidth, rect.bottom));
+      }
+      shouldDraw = !shouldDraw;
+    }
+
+    shouldDraw = true;
+    for (double i = rect.right; i > rect.left; i -= (dashWidth + dashSpace)) {
+      if (shouldDraw) {
+        dashedPath.moveTo(i, rect.bottom);
+        dashedPath.lineTo(max(i - dashWidth, rect.left), rect.bottom);
+      }
+      shouldDraw = !shouldDraw;
+    }
+
+    shouldDraw = true;
+    for (double i = rect.bottom; i > rect.top; i -= (dashWidth + dashSpace)) {
+      if (shouldDraw) {
+        dashedPath.moveTo(rect.left, i);
+        dashedPath.lineTo(rect.left, max(i - dashWidth, rect.top));
+      }
+      shouldDraw = !shouldDraw;
+    }
+
+    canvas.drawPath(dashedPath, paint);
+
+    final cornerLength = size.width * 0.1;
+
+    canvas.drawPath(
+      Path()
+        ..moveTo(rect.left, rect.top + cornerLength)
+        ..lineTo(rect.left, rect.top)
+        ..lineTo(rect.left + cornerLength, rect.top),
+      paint,
+    );
+
+    canvas.drawPath(
+      Path()
+        ..moveTo(rect.right - cornerLength, rect.top)
+        ..lineTo(rect.right, rect.top)
+        ..lineTo(rect.right, rect.top + cornerLength),
+      paint,
+    );
+
+    canvas.drawPath(
+      Path()
+        ..moveTo(rect.left, rect.bottom - cornerLength)
+        ..lineTo(rect.left, rect.bottom)
+        ..lineTo(rect.left + cornerLength, rect.bottom),
+      paint,
+    );
+
+    canvas.drawPath(
+      Path()
+        ..moveTo(rect.right - cornerLength, rect.bottom)
+        ..lineTo(rect.right, rect.bottom)
+        ..lineTo(rect.right, rect.bottom - cornerLength),
+      paint,
+    );
+
+    final centerPaint = Paint()
+      ..color = const Color(0xFF2FCE90)
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(
+      Offset(size.width / 2, size.height / 2),
+      4,
+      centerPaint,
+    );
+
+    final crosshairPaint = Paint()
+      ..color = const Color(0xFF2FCE90)
+      ..strokeWidth = 1;
+
+    const crosshairLength = 10.0;
+    canvas.drawLine(
+      Offset(size.width / 2 - crosshairLength, size.height / 2),
+      Offset(size.width / 2 + crosshairLength, size.height / 2),
+      crosshairPaint,
+    );
+    canvas.drawLine(
+      Offset(size.width / 2, size.height / 2 - crosshairLength),
+      Offset(size.width / 2, size.height / 2 + crosshairLength),
+      crosshairPaint,
+    );
+
+    final textPainter = TextPainter(
+      text: TextSpan(
+        text: translation(context).newCasePageCameraGuidelineText,
+        style: const TextStyle(
+          color: Color(0xFF2FCE90),
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
+    textPainter.paint(
+      canvas,
+      Offset(
+        (size.width - textPainter.width) / 2,
+        rect.top - 25,
+      ),
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

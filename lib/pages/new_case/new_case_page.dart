@@ -26,8 +26,7 @@ class _NewCasePageState extends State<NewCasePage> {
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           child: Text(
             translation(context).newCasePageTitle,
-            // 'Please select the area of the sickness before taking a photo:',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -55,7 +54,9 @@ class _NewCasePageState extends State<NewCasePage> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          child: ButtonRow(activeHotspotId: activeHotspotId,activeHotspotIdSetter: setActiveHotspot),
+          child: ButtonRow(
+              activeHotspotId: activeHotspotId,
+              activeHotspotIdSetter: setActiveHotspot),
         ),
       ],
     );
@@ -65,7 +66,10 @@ class _NewCasePageState extends State<NewCasePage> {
 class ButtonRow extends StatefulWidget {
   final String? activeHotspotId;
   final Function(String?) activeHotspotIdSetter;
-  const ButtonRow({super.key, required this.activeHotspotId, required this.activeHotspotIdSetter});
+  const ButtonRow(
+      {super.key,
+      required this.activeHotspotId,
+      required this.activeHotspotIdSetter});
   @override
   State<ButtonRow> createState() => _ButtonRowState();
 }
@@ -91,7 +95,8 @@ class _ButtonRowState extends State<ButtonRow> {
             elevation: 0,
           ),
           child: Text(translation(context).newCasePageCancelButton,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+              style:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
         ),
         // SizedBox(width: 10), // Add small gap between buttons
         ElevatedButton(
@@ -151,7 +156,7 @@ class _ModelViewerWithHotspotsState extends State<ModelViewerWithHotspots> {
           ar: false,
           autoRotate: false,
           cameraControls: true,
-          disableZoom: false,
+          disableZoom: true,
           disableTap: true,
           disablePan: true,
           maxCameraOrbit: 'auto 90deg auto',
@@ -172,17 +177,17 @@ class _ModelViewerWithHotspotsState extends State<ModelViewerWithHotspots> {
         //     ),
         //   ),
         // ),
-        // Positioned(
-        //   top: 60,
-        //   left: 170,
-        //   child: StaticCircularHotspot(
-        //     id: 'head',
-        //     content: 'This is the head',
-        //     // activeColor: Colors.transparent,
-        //     isActive: widget.setActiveHotspot == 'head',
-        //     onTap: widget.setActiveHotspot,
-        //   ),
-        // ),
+        Positioned(
+          top: 60,
+          left: 170,
+          child: StaticCircularHotspot(
+            id: 'head',
+            content: 'This is the head',
+            activeColor: Colors.blue.shade700,
+            isActive: widget.activeHotspotId == 'head',
+            onTap: widget.setActiveHotspot,
+          ),
+        ),
         Positioned(
           top: 140,
           left: 150,
@@ -191,55 +196,55 @@ class _ModelViewerWithHotspotsState extends State<ModelViewerWithHotspots> {
             content: 'This is the chest',
             // inactiveColor:
             //     Colors.lightBlue.shade500,
-            // activeColor: Colors.blue.shade700,
+            activeColor: Colors.blue.shade700,
             isActive: widget.activeHotspotId == 'chest',
             onTap: widget.setActiveHotspot,
           ),
         ),
-        // Positioned(
-        //   top: 180,
-        //   left: 220,
-        //   child: StaticCircularHotspot(
-        //     id: 'back',
-        //     content: 'This is the back',
-        //     activeColor: Colors.blue.shade700,
-        //     isActive: widget.activeHotspotId == 'back',
-        //     onTap: widget.setActiveHotspot,
-        //   ),
-        // ),
-        // Positioned(
-        //   top: 250,
-        //   left: 100,
-        //   child: StaticCircularHotspot(
-        //     id: 'hand',
-        //     content: 'This is the hand',
-        //     activeColor: Colors.blue.shade700,
-        //     isActive: widget.activeHotspotId == 'hand',
-        //     onTap: widget.setActiveHotspot,
-        //   ),
-        // ),
-        // Positioned(
-        //   top: 260,
-        //   left: 230,
-        //   child: StaticCircularHotspot(
-        //     id: 'thigh',
-        //     content: 'This is the thigh',
-        //     activeColor: Colors.blue.shade700,
-        //     isActive: widget.activeHotspotId == 'thigh',
-        //     onTap: widget.setActiveHotspot,
-        //   ),
-        // ),
-        // Positioned(
-        //   top: 350,
-        //   left: 160,
-        //   child: StaticCircularHotspot(
-        //     id: 'leg',
-        //     content: 'This is the leg',
-        //     activeColor: Colors.blue.shade700,
-        //     isActive: widget.activeHotspotId == 'leg',
-        //     onTap: widget.setActiveHotspot,
-        //   ),
-        // ),
+        Positioned(
+          top: 180,
+          left: 220,
+          child: StaticCircularHotspot(
+            id: 'back',
+            content: 'This is the stomach/back',
+            activeColor: Colors.blue.shade700,
+            isActive: widget.activeHotspotId == 'back',
+            onTap: widget.setActiveHotspot,
+          ),
+        ),
+        Positioned(
+          top: 250,
+          left: 100,
+          child: StaticCircularHotspot(
+            id: 'hand',
+            content: 'This is the hand',
+            activeColor: Colors.blue.shade700,
+            isActive: widget.activeHotspotId == 'hand',
+            onTap: widget.setActiveHotspot,
+          ),
+        ),
+        Positioned(
+          top: 260,
+          left: 230,
+          child: StaticCircularHotspot(
+            id: 'thigh',
+            content: 'This is the thigh',
+            activeColor: Colors.blue.shade700,
+            isActive: widget.activeHotspotId == 'thigh',
+            onTap: widget.setActiveHotspot,
+          ),
+        ),
+        Positioned(
+          top: 350,
+          left: 160,
+          child: StaticCircularHotspot(
+            id: 'leg',
+            content: 'This is the leg',
+            activeColor: Colors.blue.shade700,
+            isActive: widget.activeHotspotId == 'leg',
+            onTap: widget.setActiveHotspot,
+          ),
+        ),
       ],
     );
   }
