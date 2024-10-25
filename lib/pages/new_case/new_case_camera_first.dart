@@ -390,7 +390,7 @@ class _CameraPageState extends State<CameraPage> {
                   onPressed: () => Navigator.pop(context),
                   child: Text(
                     translation(context).newCasePageCameraTipsClose,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ],

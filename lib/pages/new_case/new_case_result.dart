@@ -182,11 +182,16 @@ class _NewCaseResultState extends State<NewCaseResult> {
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 8.0),
-                      Text(
-                        '${translation(context).newCaseResultAfterAnalysis} ${widget.results} ${translation(context).newCaseResultOfLechmaniasis}.',
-                        // 'After analysis it may be ${widget.results} of leishmaniasis.',
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                      SizedBox(
+                        height: 80,
+                        child: SingleChildScrollView(
+                          child: Text(
+                            '${translation(context).newCaseResultAfterAnalysis} ${widget.results} ${translation(context).newCaseResultOfLechmaniasis}.',
+                            // 'After analysis it may be ${widget.results} of leishmaniasis.',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
+                        ),
                       ),
                     ],
                   ),

@@ -9,34 +9,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
-  file: 
-
   flutter_localizations:
     sdk: flutter
   
+  file:
   intl: 
-
   shared_preferences: 
-
   cupertino_icons:
-
   model_viewer_plus: 
-
   camera: 
-
   path_provider: 
   image_picker:
-
   file_picker: 
-
   share_plus:
-
   hive:
-
   hive_flutter: 
-
   provider:
+  http: 
 
 dev_dependencies:
   flutter_test:
@@ -47,9 +36,7 @@ dev_dependencies:
 
 flutter:
   generate: true
-
   uses-material-design: true
-
 
   assets:
     - assets/

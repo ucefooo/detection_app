@@ -135,7 +135,7 @@ class ImagePreviewPage extends StatelessWidget {
                       translation(context).newCaseImagePreviewRetakePhoto,
                       // 'Re-take photo',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 ),
                 // SizedBox(width: 10), // Add small gap between buttons
                 ElevatedButton(
