@@ -95,6 +95,9 @@ class _ButtonRowState extends State<ButtonRow> {
             elevation: 0,
           ),
           child: Text(translation(context).newCasePageCancelButton,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               style:
                   const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
         ),
@@ -120,6 +123,9 @@ class _ButtonRowState extends State<ButtonRow> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(translation(context).newCasePageNextStepButton,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w500)),
               const SizedBox(width: 8),
@@ -315,6 +321,8 @@ class StaticCircularHotspot extends StatelessWidget {
                 content,
                 style: const TextStyle(fontSize: 12, color: Colors.black),
                 textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
           ),
