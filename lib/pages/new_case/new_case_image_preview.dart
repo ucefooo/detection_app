@@ -24,13 +24,20 @@ class ImagePreviewPage extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // Image.file(
-              //   imageFile,
-              //   fit: BoxFit.cover,
-              // ),
               _buildImageWidget(),
               _buildOverlay(),
-              _buildControls(context),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: _buildHeader(context),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: _buildBottomBar(context),
+              ),
             ],
           ),
         ),
@@ -54,10 +61,10 @@ class ImagePreviewPage extends StatelessWidget {
             );
           } else {
             print('Image file does not exist');
-            return Center(child: Text('Image file not found'));
+            return const Center(child: Text('Image file not found'));
           }
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );
@@ -69,115 +76,96 @@ class ImagePreviewPage extends StatelessWidget {
     );
   }
 
-  Widget _buildControls(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildHeader(context),
-        _buildBottomBar(context),
-      ],
-    );
-  }
-
   Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          icon: const Icon(Icons.close, color: Colors.black, size: 40),
-          onPressed: () {
-            onCancel();
-            Navigator.pop(context);
-          },
-        ),
-        Text(
-          translation(context).newCaseImagePreviewTitle,
-          style: const TextStyle(color: Colors.black, fontSize: 20),
-        ),
-        const SizedBox(width: 48), // Placeholder for symmetry
-      ],
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor = isDarkMode ? Colors.black : Colors.white;
+    return Container(
+      color: backgroundColor.withOpacity(0.9),
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.close, size: 40),
+            onPressed: () {
+              onCancel();
+              Navigator.pop(context);
+            },
+          ),
+          Text(
+            translation(context).newCaseImagePreviewTitle,
+            style: const TextStyle(fontSize: 20),
+          ),
+          const SizedBox(width: 48), // Placeholder for symmetry
+        ],
+      ),
     );
   }
 
   Widget _buildBottomBar(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDarkMode ? Colors.black : Colors.white;
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: 100,
-        color: textColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    final backgroundColor = isDarkMode ? Colors.black : Colors.white;
+
+    return Container(
+      height: 100,
+      color: backgroundColor.withOpacity(0.9),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              onCancel();
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFFC5F5F),
+              foregroundColor: Colors.white,
+              minimumSize: const Size(150, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              elevation: 0,
+            ),
+            child: Text(
+              translation(context).newCaseImagePreviewRetakePhoto,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AnalyzeLoadingPage(
+                    imageFile: imageFile,
+                  ),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF00B57A),
+              foregroundColor: Colors.white,
+              minimumSize: const Size(150, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              elevation: 0,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Add cancel functionality here
-                    onCancel();
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFC5F5F),
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(150, 40),
-                    // maximumSize: const Size(150, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                      translation(context).newCaseImagePreviewRetakePhoto,
-                      // 'Re-take photo',
-                      style:
-                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                Text(
+                  translation(context).newCaseImagePreviewAnalyze,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w500),
                 ),
-                // SizedBox(width: 10), // Add small gap between buttons
-                ElevatedButton(
-                  onPressed: () {
-                    // Add next step functionality here
-                    // Navigator.of(context,rootNavigator: true).pushNamed('case2');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AnalyzeLoadingPage(
-                          imageFile: imageFile,
-                        ),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B57A),
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(150, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                      translation(context).newCaseImagePreviewAnalyze,
-                        // 'Analyze',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500)),
-                      const SizedBox(width: 8),
-                      const Icon(Icons.arrow_forward_ios, size: 20),
-                    ],
-                  ),
-                ),
+                const SizedBox(width: 8),
+                const Icon(Icons.arrow_forward_ios, size: 20),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

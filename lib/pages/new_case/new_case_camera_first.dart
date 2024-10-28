@@ -40,7 +40,16 @@ class _CameraPageState extends State<CameraPage> {
     setState(() {
       _selectedImg = File(img.path);
     });
+    await _disposeCamera();
     _navigateToPreview();
+  }
+
+  Future<void> _disposeCamera() async {
+    if (_controller != null) {
+      await _controller!.dispose();
+      _controller = null;
+      _initializeControllerFuture = null;
+    }
   }
 
   Future<void> _initializeCamera() async {
@@ -115,11 +124,13 @@ class _CameraPageState extends State<CameraPage> {
     setState(() {
       _selectedImg = File(image.path);
     });
+    await _disposeCamera();
     _navigateToPreview();
   }
 
   @override
   void dispose() {
+    _disposeCamera();
     _controller?.dispose();
     super.dispose();
   }
@@ -332,6 +343,7 @@ class _CameraPageState extends State<CameraPage> {
               setState(() {
                 _selectedImg = File(filePath);
               });
+              _disposeCamera();
               _navigateToPreview();
               print('Picture saved to ${image.path}');
             } catch (e) {
