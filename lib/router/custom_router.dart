@@ -4,7 +4,7 @@ import 'package:detection_app/pages/about_page.dart';
 import 'package:detection_app/pages/help_page/help_page.dart';
 import 'package:detection_app/pages/home_page/home_page.dart';
 import 'package:detection_app/pages/how_to_use_page/how_to_use_page.dart';
-import 'package:detection_app/pages/information_page.dart';
+import 'package:detection_app/pages/information_page/information_page.dart';
 import 'package:detection_app/pages/new_case/new_case_page.dart';
 import 'package:detection_app/pages/not_found_page.dart';
 import 'package:detection_app/pages/saved_case/saved_case_page.dart';

@@ -40,24 +40,24 @@ class _AnalyzeLoadingPageState extends State<AnalyzeLoadingPage> {
         _buildOverlay(),
         _buildBottomBar(context),
         _buildBottomBarText(context),
-        // FloatingActionButton(
-        //   onPressed: () {
-        //     if (!isLoading && results.isEmpty) _getResults(widget.imageFile);
-        //     if (isLoading) {
-        //       return;
-        //     }
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //         builder: (context) => NewCaseResult(
-        //           imageFile: widget.imageFile,
-        //           results: results,
-        //         ),
-        //       ),
-        //     );
-        //   },
-        //   child: const Icon(Icons.next_plan_outlined),
-        // ),
+        FloatingActionButton(
+          onPressed: () {
+            // if (!isLoading && results.isEmpty) _getResults(widget.imageFile);
+            // if (isLoading) {
+            //   return;
+            // }
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NewCaseResult(
+                  imageFile: widget.imageFile,
+                  results: '80%',
+                ),
+              ),
+            );
+          },
+          child: const Icon(Icons.next_plan_outlined),
+        ),
       ],
     );
   }
@@ -249,6 +249,7 @@ class _AnalyzeLoadingPageState extends State<AnalyzeLoadingPage> {
         });
       }
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         results = 'Error: $e';
         isLoading = false;
