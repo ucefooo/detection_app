@@ -118,6 +118,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
 
   Future<void> _initializeCamera() async {
     try {
+      // await _disposeCamera();
       final cameras = await availableCameras();
       if (cameras.isEmpty) {
         throw CameraException(
@@ -135,6 +136,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
       );
 
       _initializeControllerFuture = newController.initialize();
+      await _initializeControllerFuture;
 
       if (mounted) {
         setState(() {
@@ -172,7 +174,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   void _navigateToPreview() async {
     if (_selectedImg != null) {
       await _disposeCamera();
-      Navigator.push(
+      await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ImagePreviewPage(
@@ -184,14 +186,19 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
             },
           ),
         ),
-      );
+      ).then((_) {
+        // This will run when returning to the camera page
+        if (mounted) {
+          _initializeCamera();
+        }
+      });
     }
   }
 
   @override
   void dispose() {
     _disposeCamera();
-    _controller?.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
