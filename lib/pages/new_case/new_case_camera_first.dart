@@ -339,24 +339,34 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
                   CameraDescription? newCamera;
                   final lensDirection = _controller!.description.lensDirection;
 
-                  if (lensDirection == CameraLensDirection.front) {
-                    // Switch to back camera if available
-                    newCamera = cameras.firstWhere((camera) =>
-                        camera.lensDirection == CameraLensDirection.back);
-                  } else {
-                    // Switch to front camera if available
-                    newCamera = cameras.firstWhere((camera) =>
-                        camera.lensDirection == CameraLensDirection.front);
-                  }
+                  // if (lensDirection == CameraLensDirection.front) {
+                  //   // Switch to back camera if available
+                  //   newCamera = cameras.firstWhere((camera) =>
+                  //       camera.lensDirection == CameraLensDirection.back);
+                  // } else {
+                  //   // Switch to front camera if available
+                  //   newCamera = cameras.firstWhere((camera) =>
+                  //       camera.lensDirection == CameraLensDirection.front);
+                  // }
+
+                  newCamera = cameras.firstWhere(
+                    (camera) => camera.lensDirection != lensDirection,
+                    orElse: () => cameras.first,
+                  );
 
                   // Initialize the new camera
                   _controller = CameraController(
                     newCamera,
                     ResolutionPreset.medium,
+                    enableAudio: false,
+                    imageFormatGroup: Platform.isIOS
+                        ? ImageFormatGroup.bgra8888
+                        : ImageFormatGroup.yuv420,
                   );
 
                   // Reinitialize the camera
                   _initializeControllerFuture = _controller!.initialize();
+                  await _initializeControllerFuture;
                   setState(() {});
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
