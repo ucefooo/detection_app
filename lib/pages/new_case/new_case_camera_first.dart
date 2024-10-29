@@ -17,31 +17,95 @@ class CameraPage extends StatefulWidget {
   _CameraPageState createState() => _CameraPageState();
 }
 
-class _CameraPageState extends State<CameraPage> {
+class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
   CameraController? _controller;
   Future<void>? _initializeControllerFuture;
   File? _selectedImg;
+  bool _isCameraPermissionGranted = false;
 
   @override
   void initState() {
     super.initState();
-    _initializeCamera();
+    WidgetsBinding.instance.addObserver(this);
+    _checkCameraPermission();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final CameraController? cameraController = _controller;
+
+    if (cameraController == null || !cameraController.value.isInitialized) {
+      return;
+    }
+
+    if (state == AppLifecycleState.inactive) {
+      cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      _initializeCamera();
+    }
+  }
+
+  Future<void> _checkCameraPermission() async {
+    try {
+      final cameras = await availableCameras();
+      if (cameras.isEmpty) {
+        setState(() {
+          _isCameraPermissionGranted = false;
+        });
+        return;
+      }
+
+      final firstCamera = cameras.first;
+      _controller = CameraController(
+        firstCamera,
+        ResolutionPreset.medium,
+        enableAudio: false,
+        imageFormatGroup: Platform.isIOS
+            ? ImageFormatGroup.bgra8888
+            : ImageFormatGroup.yuv420,
+      );
+
+      _initializeControllerFuture = _controller!.initialize().then((_) {
+        if (mounted) {
+          setState(() {
+            _isCameraPermissionGranted = true;
+          });
+        }
+      }).catchError((error) {
+        print('Error initializing camera: $error');
+        if (mounted) {
+          setState(() {
+            _isCameraPermissionGranted = false;
+          });
+        }
+      });
+    } catch (e) {
+      print('Error checking camera permission: $e');
+      setState(() {
+        _isCameraPermissionGranted = false;
+      });
+    }
   }
 
   Future _pickFromGallery() async {
-    final img = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (img == null) {
+    try {
+      final img = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (img == null) {
+        setState(() {
+          _selectedImg = null;
+        });
+        return;
+      }
       setState(() {
-        _selectedImg = null;
+        _selectedImg = File(img.path);
       });
-      return;
+      _navigateToPreview();
+    } catch (e) {
+      print('Error picking from gallery: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error accessing gallery: $e')),
+      );
     }
-    setState(() {
-      _selectedImg = File(img.path);
-    });
-    await _disposeCamera();
-    _navigateToPreview();
   }
 
   Future<void> _disposeCamera() async {
@@ -59,36 +123,41 @@ class _CameraPageState extends State<CameraPage> {
         throw CameraException(
             'No cameras found', 'No cameras available on this device');
       }
-      final firstCamera = cameras.first;
 
-      _controller = CameraController(
+      final firstCamera = cameras.first;
+      final newController = CameraController(
         firstCamera,
         ResolutionPreset.medium,
+        enableAudio: false,
+        imageFormatGroup: Platform.isIOS
+            ? ImageFormatGroup.bgra8888
+            : ImageFormatGroup.yuv420,
       );
 
-      _initializeControllerFuture = _controller!.initialize();
-      setState(() {});
+      _initializeControllerFuture = newController.initialize();
+
+      if (mounted) {
+        setState(() {
+          _controller = newController;
+        });
+      }
     } catch (e) {
       print('Error initializing camera: $e');
-      // You might want to show an error message to the user here
     }
   }
 
   Future<String?> _getDownloadsPath() async {
-    Directory? directory;
     try {
       if (Platform.isAndroid) {
-        directory = Directory('/storage/emulated/0/Download');
-        // Fallback to app-specific directory if the above doesn't exist
+        final directory = Directory('/storage/emulated/0/Download');
         if (!await directory.exists()) {
-          directory = await getExternalStorageDirectory();
+          final externalDir = await getExternalStorageDirectory();
+          return externalDir?.path;
         }
-      } else {
-        // directory = await getApplicationDocumentsDirectory();
-        final appDocDir = await getApplicationDocumentsDirectory();
-        final downloadsDir = Directory('${appDocDir.path}/Downloads');
-
-        // Create the directory if it doesn't exist
+        return directory.path;
+      } else if (Platform.isIOS) {
+        final directory = await getApplicationDocumentsDirectory();
+        final downloadsDir = Directory('${directory.path}/Downloads');
         if (!await downloadsDir.exists()) {
           await downloadsDir.create(recursive: true);
         }
@@ -97,11 +166,12 @@ class _CameraPageState extends State<CameraPage> {
     } catch (e) {
       print('Could not access the downloads directory: $e');
     }
-    return directory?.path;
+    return null;
   }
 
-  void _navigateToPreview() {
+  void _navigateToPreview() async {
     if (_selectedImg != null) {
+      await _disposeCamera();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -109,23 +179,13 @@ class _CameraPageState extends State<CameraPage> {
             imageFile: _selectedImg!,
             onCancel: () {
               setState(() {
-                _selectedImg = null; // Reset the selected image
+                _selectedImg = null;
               });
             },
           ),
         ),
       );
     }
-  }
-
-  Future<void> _captureImage() async {
-    if (!_controller!.value.isInitialized) return;
-    final image = await _controller!.takePicture();
-    setState(() {
-      _selectedImg = File(image.path);
-    });
-    await _disposeCamera();
-    _navigateToPreview();
   }
 
   @override
@@ -137,6 +197,26 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_isCameraPermissionGranted) {
+      return Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Camera access is required',
+                style: TextStyle(color: Colors.white),
+              ),
+              ElevatedButton(
+                onPressed: () => _checkCameraPermission(),
+                child: const Text('Grant Access'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -343,7 +423,6 @@ class _CameraPageState extends State<CameraPage> {
               setState(() {
                 _selectedImg = File(filePath);
               });
-              _disposeCamera();
               _navigateToPreview();
               print('Picture saved to ${image.path}');
             } catch (e) {
