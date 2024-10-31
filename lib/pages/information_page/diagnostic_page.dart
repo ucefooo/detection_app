@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class DiagnosticPage extends StatelessWidget {
-  const DiagnosticPage({Key? key}) : super(key: key);
+  const DiagnosticPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class DiagnosticPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Diagnostic Methods'),
+        title: Text(translation(context).diagnostic),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -29,20 +30,20 @@ class DiagnosticPage extends StatelessWidget {
                 ),
               ),
               padding: const EdgeInsets.all(20),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Diagnostic Methods',
-                    style: TextStyle(
+                    translation(context).transmissioncyclestep19,
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
-                    'Different methods for diagnosing Leishmaniasis:',
-                    style: TextStyle(
+                    translation(context).transmissioncyclestep20,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -54,48 +55,48 @@ class DiagnosticPage extends StatelessWidget {
               child: Column(
                 children: [
                   DiagnosticMethodCard(
-                    title: 'Microscopy',
-                    mainDescription: 'Direct Examination (Giemsa)',
+                    title: translation(context).transmissioncyclestep21,
+                    mainDescription: translation(context).transmissioncyclestep22,
                     details: [
-                      'Standard microscopy setup for sample examination',
-                      'Uses Giemsa staining technique',
-                      'Direct visualization of parasites',
-                      'Traditional and reliable method'
+                      translation(context).transmissioncyclestep23,
+                      translation(context).transmissioncyclestep24,
+                      translation(context).transmissioncyclestep25,
+                      translation(context).transmissioncyclestep26
                     ],
                   ),
                   const SizedBox(height: 16),
                   DiagnosticMethodCard(
-                    title: 'Molecular Techniques',
-                    mainDescription: 'DNA/RNA-based Detection Methods',
+                    title: translation(context).transmissioncyclestep27,
+                    mainDescription: translation(context).transmissioncyclestep28,
                     details: [
-                      'PCR and PCR-RFLP for DNA analysis',
-                      'LAMP technique for amplification',
-                      'RT-PCR for RNA detection',
-                      'MLST for strain typing',
-                      'NGS for comprehensive genetic analysis'
+                      translation(context).transmissioncyclestep29,
+                      translation(context).transmissioncyclestep30,
+                      translation(context).transmissioncyclestep31,
+                      translation(context).transmissioncyclestep32,
+                      translation(context).transmissioncyclestep33
                     ],
                   ),
                   const SizedBox(height: 16),
                   DiagnosticMethodCard(
-                    title: 'Culture',
-                    mainDescription: 'Growth Media Methods',
+                    title: translation(context).transmissioncyclestep34,
+                    mainDescription: translation(context).transmissioncyclestep35,
                     details: [
-                      'Novy-MacNeal-Nicolle (NNN)',
-                      'Roswell Park Memorial Institute (RPMI)',
-                      'Uses specialized growth media',
-                      'Includes biopsy samples',
-                      'Requires specific conditions and antibiotics'
+                      translation(context).transmissioncyclestep36,
+                      translation(context).transmissioncyclestep37,
+                      translation(context).transmissioncyclestep38,
+                      translation(context).transmissioncyclestep39,
+                      translation(context).transmissioncyclestep40
                     ],
                   ),
                   const SizedBox(height: 16),
                   DiagnosticMethodCard(
-                    title: 'Rapid Diagnostic Test',
-                    mainDescription: 'RDT Analysis',
+                    title: translation(context).transmissioncyclestep41,
+                    mainDescription: translation(context).transmissioncyclestep42,
                     details: [
-                      'Serum separation process',
-                      'Immunochromatographic detection',
-                      'Quick results in field conditions',
-                      'Simple positive/negative readout'
+                      translation(context).transmissioncyclestep43,
+                      translation(context).transmissioncyclestep44,
+                      translation(context).transmissioncyclestep45,
+                      translation(context).transmissioncyclestep46
                     ],
                   ),
                 ],

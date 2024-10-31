@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class OverviewPage extends StatelessWidget {
   const OverviewPage({super.key});
@@ -13,7 +14,7 @@ class OverviewPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Disease Overview'),
+        title: Text(translation(context).overview),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -34,7 +35,7 @@ class OverviewPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Leishmaniasis',
+                    translation(context).leishmaniasis,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -43,7 +44,7 @@ class OverviewPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Parasitic Disease Overview',
+                    translation(context).parasitic_disease_overview,
                     style: TextStyle(
                       fontSize: 16,
                       color: isDarkMode ? Colors.white70 : Colors.white70,
@@ -63,24 +64,24 @@ class OverviewPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: InfoSection(
-                        title: 'What is Leishmaniasis?',
-                        content: 'Leishmaniasis is a parasitic disease caused by the Leishmania parasite, transmitted to humans through the bites of infected sand flies. It primarily affects the skin, mucous membranes, and internal organs, causing a range of clinical manifestations.',
+                        title: translation(context).what_is_leishmaniasis,
+                        content: translation(context).leishmaniasis_description,
                         isDarkMode: isDarkMode,
                       ),
                     ),
                   ),
                   const SizedBox(height: 24),
                   StatisticsCard(
-                    title: 'Worldwide Statistics',
-                    content: 'Leishmaniasis affects millions across 98 countries, mainly in tropical and subtropical regions. The WHO estimates that around 700,000 to 1 million new cases occur annually, with over 20,000 deaths.',
+                    title: translation(context).worldwide_statistics,
+                    content: translation(context).worldwide_statistics_description,
                     icon: Icons.public,
                     isDarkMode: isDarkMode,
                     shadowColor: shadowColor,
                   ),
                   const SizedBox(height: 24),
                   StatisticsCard(
-                    title: 'Morocco Statistics',
-                    content: 'In Morocco, cases of cutaneous leishmaniasis are more common, particularly in rural areas. The country has observed fluctuating cases, influenced by factors like climate, socio-economic status, and public health efforts.',
+                    title: translation(context).morocco_statistics,
+                    content: translation(context).morocco_statistics_description,
                     icon: Icons.location_on,
                     isDarkMode: isDarkMode,
                     shadowColor: shadowColor,

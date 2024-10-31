@@ -5,6 +5,7 @@ import 'package:detection_app/pages/information_page/prevention_control_page.dar
 import 'package:detection_app/pages/information_page/trasmission_page.dart';
 import 'package:detection_app/pages/information_page/treatment_page.dart';
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class InformationPage extends StatelessWidget {
   const InformationPage({super.key});
@@ -19,41 +20,40 @@ class InformationPage extends StatelessWidget {
         crossAxisSpacing: 16.0,
         children: [
           SymptomCard(
-            title: 'Overview of Leishmaniasis',
-            iconColor: Colors.blue.shade600, // Matches header color scheme
-            icon: Icons.info_outline, // Information icon fits overview content
+            title: translation(context).overview,
+            iconColor: Colors.blue.shade600,
+            icon: Icons.info_outline,
             onTap: () => Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(builder: (context) => const OverviewPage()),
             ),
           ),
           SymptomCard(
-            title: 'Transmission cycle',
-            iconColor:
-                Colors.orange.shade600, // Warning/alert color for transmission
-            icon: Icons.bug_report, // Bug icon represents vector transmission
+            title: translation(context).transmission,
+            iconColor: Colors.orange.shade600,
+            icon: Icons.bug_report,
             onTap: () => Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(builder: (context) => const TransmissionPage()),
             ),
           ),
           SymptomCard(
-            title: 'Clinical forms',
-            iconColor: Colors.red.shade600, // Medical/emergency color
+            title: translation(context).clinical,
+            iconColor: Colors.red.shade600, 
             icon: Icons.local_hospital, // Hospital icon for clinical aspects
             onTap: () => Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(builder: (context) => const ClinicalPage()),
             ),
           ),
           SymptomCard(
-            title: 'Diagnostic techniques',
-            iconColor: Colors
-                .purple.shade800, // Matches diagnostic page header dark mode
+            title: translation(context).diagnostic,
+            iconColor: Colors.purple.shade800, // Matches diagnostic page header dark mode
             icon: Icons.science, // Science icon for diagnostic/lab work
             onTap: () => Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(builder: (context) => const DiagnosticPage()),
             ),
           ),
           SymptomCard(
-            title: 'Treatment',
+            // title: 'Treatment',
+            title: translation(context).treatment,
             iconColor: Colors.green.shade600, // Healing/positive color
             icon: Icons.medication, // Medication icon for treatment
             onTap: () => Navigator.of(context, rootNavigator: true).push(
@@ -61,7 +61,8 @@ class InformationPage extends StatelessWidget {
             ),
           ),
           SymptomCard(
-            title: 'Prevention and control strategies',
+            // title: 'Prevention and control strategies',
+            title: translation(context).prevention,
             iconColor: Colors.blue.shade800, // Matches prevention page header
             icon: Icons.shield, // Shield icon represents protection/prevention
             onTap: () => Navigator.of(context, rootNavigator: true).push(
@@ -109,6 +110,8 @@ class SymptomCard extends StatelessWidget {
               Text(
                 title,
                 textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -125,7 +128,7 @@ class SymptomCard extends StatelessWidget {
 class DetailPage extends StatelessWidget {
   final String title;
 
-  const DetailPage({required this.title});
+  const DetailPage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class TransmissionPage extends StatelessWidget {
   const TransmissionPage({super.key});
@@ -13,7 +14,7 @@ class TransmissionPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transmission Cycle'),
+        title: Text(translation(context).transmission),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -34,7 +35,8 @@ class TransmissionPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'How It Spreads',
+                    // 'How It Spreads',
+                    translation(context).transmissionhow,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -43,7 +45,8 @@ class TransmissionPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Understanding the Transmission Cycle',
+                    // 'Understanding the Transmission Cycle',
+                    translation(context).transmissioncycle,
                     style: TextStyle(
                       fontSize: 16,
                       color: isDarkMode ? Colors.white70 : Colors.white70,
@@ -60,11 +63,11 @@ class TransmissionPage extends StatelessWidget {
                   Card(
                     elevation: 4,
                     shadowColor: shadowColor,
-                    child: const Padding(
-                      padding: EdgeInsets.all(16.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        'The transmission of leishmaniasis occurs through the bite of an infected female sand fly. When the fly bites a person or an animal carrying the parasite, it ingests the parasite, which then develops in the fly\'s gut. Once mature, the parasites travel to the fly\'s mouthparts, enabling transmission to a new host through another bite, continuing the cycle.',
-                        style: TextStyle(
+                        translation(context).transmission_description,
+                        style: const TextStyle(
                           fontSize: 16,
                           height: 1.5,
                         ),
@@ -78,11 +81,12 @@ class TransmissionPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
                           child: Text(
-                            'Transmission Cycle Steps',
-                            style: TextStyle(
+                            // 'Transmission Cycle Steps',
+                            translation(context).transmissioncyclesteps,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -90,36 +94,38 @@ class TransmissionPage extends StatelessWidget {
                         ),
                         CycleStep(
                           number: "1",
-                          title: "Sand Fly Stage",
-                          description: "Le phlébotome prend un repas de sang",
+                          // title: "Sand Fly Stage",
+                          title: translation(context).transmissioncyclestep1,
+                          // description: "Le phlébotome prend un repas de sang",
+                          description: translation(context).transmissioncyclestep1desc,
                           isLeft: true,
                           isDarkMode: isDarkMode,
                         ),
                         CycleStep(
                           number: "2",
-                          title: "Human Stage",
-                          description: "Les promastigotes sont phagocytés par les macrophages",
+                          title: translation(context).transmissioncyclestep2,
+                          description: translation(context).transmissioncyclestep3,
                           isLeft: false,
                           isDarkMode: isDarkMode,
                         ),
                         CycleStep(
                           number: "3",
-                          title: "Transformation",
-                          description: "Les promastigotes se transforment en amastigotes dans les macrophages",
+                          title: translation(context).transmissioncyclestep4,
+                          description: translation(context).transmissioncyclestep5,
                           isLeft: true,
                           isDarkMode: isDarkMode,
                         ),
                         CycleStep(
                           number: "4",
-                          title: "Multiplication",
-                          description: "Les amastigotes se multiplient dans les cellules",
+                          title: translation(context).transmissioncyclestep6,
+                          description: translation(context).transmissioncyclestep7,
                           isLeft: false,
                           isDarkMode: isDarkMode,
                         ),
                         CycleStep(
                           number: "5",
-                          title: "Ingestion",
-                          description: "Ingestion de macrophages infectés par des amastigotes",
+                          title: translation(context).transmissioncyclestep8,
+                          description: translation(context).transmissioncyclestep9,
                           isLeft: true,
                           isDarkMode: isDarkMode,
                         ),
@@ -140,10 +146,10 @@ class TransmissionPage extends StatelessWidget {
                             color: isDarkMode ? Colors.purple : Colors.blue,
                           ),
                           const SizedBox(width: 12),
-                          const Expanded(
+                          Expanded(
                             child: Text(
-                              'This cycle represents both the infective and diagnostic stages of leishmaniasis transmission.',
-                              style: TextStyle(
+                              translation(context).transmissioncyclestep10,
+                              style: const TextStyle(
                                 fontSize: 14,
                               ),
                             ),

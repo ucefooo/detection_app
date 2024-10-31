@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class ClinicalPage extends StatelessWidget {
   const ClinicalPage({super.key});
@@ -13,7 +14,7 @@ class ClinicalPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Clinical Forms'),
+        title: Text(translation(context).clinical),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -34,7 +35,7 @@ class ClinicalPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Clinical Forms',
+                    translation(context).transmissioncyclestep11,
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -43,7 +44,7 @@ class ClinicalPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Leishmaniasis is caused by a protozoa parasite from over 20 Leishmania species. Over 90 sandfly species are known to transmit Leishmania parasites. There are 3 main forms of the disease:',
+                    translation(context).transmissioncyclestep12,
                     style: TextStyle(
                       fontSize: 16,
                       color: isDarkMode ? Colors.white70 : Colors.white70,
@@ -57,24 +58,24 @@ class ClinicalPage extends StatelessWidget {
               child: Column(
                 children: [
                   ClinicalFormCard(
-                    title: 'Visceral Leishmaniasis (VL)',
-                    description: 'VL, also known as kala-azar, is fatal if left untreated in over 95% of cases. It is characterized by irregular bouts of fever, weight loss, enlargement of the spleen and liver, and anaemia. Most cases occur in Brazil, east Africa and India. An estimated 50 000 to 90 000 new cases of VL occur worldwide annually, with only 25–45% reported to WHO. It has outbreak and mortality potential.',
+                    title: translation(context).transmissioncyclestep13,
+                    description: translation(context).transmissioncyclestep14,
                     imagePath: 'assets/visceral.png',
                     shadowColor: shadowColor,
                     isDarkMode: isDarkMode,
                   ),
                   const SizedBox(height: 16),
                   ClinicalFormCard(
-                    title: 'Cutaneous Leishmaniasis (CL)',
-                    description: 'CL is the most common form and causes skin lesions, mainly ulcers, on exposed parts of the body. These can leave life-long scars and cause serious disability or stigma. About 95% of CL cases occur in the Americas, the Mediterranean basin, the Middle East and central Asia. It is estimated that 600 000 to 1 million new cases occur worldwide annually but only around 200 000 are reported to WHO.',
+                    title: translation(context).transmissioncyclestep15,
+                    description: translation(context).transmissioncyclestep16,
                     imagePath: 'assets/cutaneous.png',
                     shadowColor: shadowColor,
                     isDarkMode: isDarkMode,
                   ),
                   const SizedBox(height: 16),
                   ClinicalFormCard(
-                    title: 'Mucocutaneous Leishmaniasis',
-                    description: 'Leads to partial or total destruction of mucous membranes of the nose, mouth and throat. Over 90% of mucocutaneous leishmaniasis cases occur in Bolivia, Brazil, Ethiopia and Peru.',
+                    title: translation(context).transmissioncyclestep17,
+                    description: translation(context).transmissioncyclestep18,
                     imagePath: 'assets/mucocutaneous.png',
                     shadowColor: shadowColor,
                     isDarkMode: isDarkMode,

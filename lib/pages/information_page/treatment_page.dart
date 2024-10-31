@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:detection_app/classes/language_constants.dart';
 
 class TreatmentPage extends StatelessWidget {
   const TreatmentPage({super.key});
@@ -12,7 +13,7 @@ class TreatmentPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Treatment Methods'),
+        title: Text(translation(context).treatment),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -29,20 +30,20 @@ class TreatmentPage extends StatelessWidget {
                 ),
               ),
               padding: const EdgeInsets.all(20),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Treatment Methods',
-                    style: TextStyle(
+                    translation(context).transmissioncyclestep51,
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
-                    'Available treatments for Leishmaniasis:',
-                    style: TextStyle(
+                    translation(context).transmissioncyclestep52,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -54,47 +55,47 @@ class TreatmentPage extends StatelessWidget {
               child: Column(
                 children: [
                   TreatmentMethodCard(
-                    title: 'Antimonial Drugs',
-                    mainDescription: 'Primary Treatment Option',
+                    title: translation(context).transmissioncyclestep53,
+                    mainDescription: translation(context).transmissioncyclestep54,
                     details: [
-                      'Meglumine antimoniate is commonly prescribed',
-                      'Effectiveness varies by region',
-                      'Requires careful monitoring due to side effects',
-                      'Duration of treatment depends on disease form'
+                      translation(context).transmissioncyclestep55,
+                      translation(context).transmissioncyclestep56,
+                      translation(context).transmissioncyclestep57,
+                      translation(context).transmissioncyclestep58
                     ],
                   ),
                   const SizedBox(height: 16),
                   TreatmentMethodCard(
-                    title: 'Amphotericin B',
-                    mainDescription: 'Severe Case Treatment',
+                    title: translation(context).transmissioncyclestep59,
+                    mainDescription: translation(context).transmissioncyclestep60,
                     details: [
-                      'Primarily used for visceral leishmaniasis',
-                      'Available in different formulations',
-                      'Requires hospital administration',
-                      'Effective in antimony-resistant cases'
+                      translation(context).transmissioncyclestep61,
+                      translation(context).transmissioncyclestep62,
+                      translation(context).transmissioncyclestep63,
+                      translation(context).transmissioncyclestep64,
                     ],
                   ),
                   const SizedBox(height: 16),
                   TreatmentMethodCard(
-                    title: 'Oral Treatments',
-                    mainDescription: 'Miltefosine and Others',
+                    title: translation(context).transmissioncyclestep65,
+                    mainDescription: translation(context).transmissioncyclestep66,
                     details: [
-                      'Miltefosine as primary oral option',
-                      'Availability varies by region',
-                      'Requires complete course completion',
-                      'Alternative when other treatments fail'
+                      translation(context).transmissioncyclestep67,
+                      translation(context).transmissioncyclestep68,
+                      translation(context).transmissioncyclestep69,
+                      translation(context).transmissioncyclestep70,
                     ],
                   ),
                   const SizedBox(height: 16),
                   TreatmentMethodCard(
-                    title: 'Supportive Care',
-                    mainDescription: 'Symptom Management',
+                    title: translation(context).transmissioncyclestep71,
+                    mainDescription: translation(context).transmissioncyclestep72,
                     details: [
-                      'Management of complications',
-                      'Nutritional support',
-                      'Pain management when needed',
-                      'Regular monitoring of vital signs',
-                      'Prevention of secondary infections'
+                      translation(context).transmissioncyclestep73,
+                      translation(context).transmissioncyclestep74,
+                      translation(context).transmissioncyclestep75,
+                      translation(context).transmissioncyclestep76,
+                      translation(context).transmissioncyclestep77,
                     ],
                   ),
                 ],
