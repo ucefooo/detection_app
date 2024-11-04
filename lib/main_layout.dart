@@ -284,6 +284,10 @@ class _MainLayoutState extends State<MainLayout> {
     // ...
     List<MenuItems> menuItems = [
       MenuItems(
+          title: translation(context).homePage,
+          icon: Icons.home_outlined,
+          route: homeRoute),
+      MenuItems(
           title: translation(context).newCase,
           icon: Icons.add,
           route: newCaseRoute),
@@ -314,13 +318,13 @@ class _MainLayoutState extends State<MainLayout> {
         icon: Icons.settings,
         route: settingsRoute);
     return Container(
-      color: Color(0xFF00B57A),
+      color: const Color(0xFF00B57A),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             height: 100,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             alignment: Alignment.bottomLeft,
             child: Text(
               translation(context).menu,
