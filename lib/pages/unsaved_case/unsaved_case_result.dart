@@ -95,7 +95,8 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                 Center(
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    child: const Divider(color: Color(0xFF00B57A), thickness: 2),
+                    child:
+                        const Divider(color: Color(0xFF00B57A), thickness: 2),
                   ),
                 ),
                 Padding(
@@ -139,7 +140,7 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                     children: [
                       //
                       CustomButton(
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.blue,
                         text: translation(context).newCaseResultRedoTest,
                         onPressed: () {
                           //implement the save to database functionality here
@@ -265,6 +266,106 @@ class _UnsavedCaseResultState extends State<UnsavedCaseResult> {
                           );
                         },
                       ),
+                      CustomButton(
+                        backgroundColor: Colors.red,
+                        text: translation(context).newCaseResultDeleteTest,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                  translation(context)
+                                      .newCaseResultDeleteTestQuestion,
+                                  // "Are you sure you want to save this test?",
+                                  style: const TextStyle(
+                                      fontSize:
+                                          16), // Adjust font size if needed
+                                ),
+                                content: Text(
+                                  translation(context)
+                                      .newCaseResultDeleteTestContent,
+                                ),
+                                actions: <Widget>[
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.all(0.0),
+                                          backgroundColor:
+                                              const Color(0xFF00B57A),
+                                          foregroundColor: Colors.white,
+                                          minimumSize: const Size(120, 40),
+                                          maximumSize: const Size(120, 40),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          elevation: 0,
+                                        ),
+                                        child: Text(
+                                          translation(context)
+                                              .newCasePageCancelButton,
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          setState(() {
+                                            boxResult.delete(widget.index);
+                                          });
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MainLayout(
+                                                        initialRoute:
+                                                            unsavedCaseRoute)), // Replace NewPage with your target page
+                                            (Route<dynamic> route) =>
+                                                false, // This removes all the previous routes
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.all(0.0),
+                                          backgroundColor: Colors.red,
+                                          foregroundColor: Colors.white,
+                                          minimumSize: const Size(120, 40),
+                                          maximumSize: const Size(120, 40),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          elevation: 0,
+                                        ),
+                                        child: Text(
+                                          translation(context)
+                                              .newCaseResultDeleteTest,
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -297,8 +398,8 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.all(0.0),
         backgroundColor: backgroundColor,
         foregroundColor: Colors.white,
-        minimumSize: const Size(150, 40),
-        maximumSize: const Size(150, 40),
+        minimumSize: const Size(120, 40),
+        maximumSize: const Size(120, 40),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),

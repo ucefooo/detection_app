@@ -208,6 +208,9 @@
   "transmissioncyclestep92": "• Community education programs\n• Local health partnerships\n• Public awareness campaigns\n• Stakeholder engagement\n• Resource mobilization",
   "transmissioncyclestep93": "• Host population monitoring\n• Vaccination programs\n• Population control measures\n• Habitat management\n• Regular screening",
   "transmissioncyclestep94": "• Insecticide spraying\n• Bed net distribution\n• Environmental management\n• Breeding site elimination\n• Resistance monitoring",
+  "newCaseResultDeleteTest": "Delete Test",
+  "newCaseResultDeleteTestQuestion": "Are you sure you want to delete this test?",
+  "newCaseResultDeleteTestContent": "Do you want to delete the current test?",
 
   "test":"test"
 }

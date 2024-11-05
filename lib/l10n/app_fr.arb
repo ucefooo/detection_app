@@ -208,6 +208,9 @@
   "transmissioncyclestep92": "• Programmes d'éducation communautaire\n• Partenariats de santé locaux\n• Campagnes de sensibilisation du public\n• Engagement des parties prenantes\n• Mobilisation des ressources",
   "transmissioncyclestep93": "• Surveillance de la population hôte\n• Programmes de vaccination\n• Mesures de contrôle de la population\n• Gestion de l'habitat\n• Dépistage régulier",
   "transmissioncyclestep94": "• Pulvérisation d'insecticides\n• Distribution de moustiquaires\n• Gestion environnementale\n• Élimination des sites de reproduction\n• Surveillance de la résistance",
+  "newCaseResultDeleteTest": "Supprimer",
+  "newCaseResultDeleteTestQuestion": "Êtes-vous sûr de vouloir supprimer ce test ?",
+  "newCaseResultDeleteTestContent": "Voulez-vous supprimer le test en cours ?",
 
   "test":"test"
 }
