@@ -5,6 +5,8 @@ import 'package:detection_app/router/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:detection_app/classes/language_constants.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 class NewCaseResult extends StatefulWidget {
   final File imageFile;
@@ -316,7 +318,7 @@ class _NewCaseResultState extends State<NewCaseResult> {
                                     backgroundColor: const Color(0xFF00B57A),
                                     text: translation(context)
                                         .newCaseResultFinishTest,
-                                    onPressed: () {
+                                    onPressed: () async {
                                       setState(() {
                                         boxResult.put(
                                             'key_${widget.imageFile.path}',
@@ -326,6 +328,28 @@ class _NewCaseResultState extends State<NewCaseResult> {
                                               date: DateTime.now(),
                                               saved: 0,
                                             ));
+                                      });
+                                      String fullPath = await Supabase
+                                          .instance.client.storage
+                                          .from('Photos')
+                                          .upload(
+                                            const Uuid().v4(),
+                                            File(widget.imageFile.path),
+                                            fileOptions: const FileOptions(
+                                                cacheControl: '3600',
+                                                upsert: false),
+                                          );
+                                      final res = Supabase
+                                          .instance.client.storage
+                                          .from('Photos')
+                                          .getPublicUrl(
+                                              fullPath.split('/').last);
+                                      debugPrint(res);
+                                      await Supabase.instance.client
+                                          .from('Result')
+                                          .insert({
+                                        'image': res,
+                                        'results': widget.results,
                                       });
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
@@ -339,7 +363,7 @@ class _NewCaseResultState extends State<NewCaseResult> {
                                     backgroundColor: Colors.blue[600]!,
                                     text: translation(context)
                                         .newCaseResultSaveResults,
-                                    onPressed: () {
+                                    onPressed: () async {
                                       setState(() {
                                         boxResult.put(
                                             'key_${widget.imageFile.path}',
@@ -349,6 +373,28 @@ class _NewCaseResultState extends State<NewCaseResult> {
                                               date: DateTime.now(),
                                               saved: 1,
                                             ));
+                                      });
+                                      String fullPath = await Supabase
+                                          .instance.client.storage
+                                          .from('Photos')
+                                          .upload(
+                                            const Uuid().v4(),
+                                            File(widget.imageFile.path),
+                                            fileOptions: const FileOptions(
+                                                cacheControl: '3600',
+                                                upsert: false),
+                                          );
+                                      final res = Supabase
+                                          .instance.client.storage
+                                          .from('Photos')
+                                          .getPublicUrl(
+                                              fullPath.split('/').last);
+                                      debugPrint(res);
+                                      await Supabase.instance.client
+                                          .from('Result')
+                                          .insert({
+                                        'image': res,
+                                        'results': widget.results,
                                       });
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(

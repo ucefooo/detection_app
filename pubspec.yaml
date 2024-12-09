@@ -26,6 +26,8 @@ dependencies:
   hive_flutter: 
   provider:
   http:
+  supabase_flutter:
+  uuid:
 
 dev_dependencies:
   flutter_test:

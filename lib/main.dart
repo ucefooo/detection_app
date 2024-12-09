@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:detection_app/router/route_constants.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +19,10 @@ void main() async{
   Hive.registerAdapter(ResultAdapter());
   boxResult = await Hive.openBox<Result>('userBox');
   // runApp(const MainApp());
+  await Supabase.initialize(
+    url: 'https://zmrtzmvxjbbxxykbjnmu.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptcnR6bXZ4amJieHh5a2Jqbm11Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM3Mzg4MzIsImV4cCI6MjA0OTMxNDgzMn0.ZzFPFBZOUK96c4gMBpD4pCNidVgH6crOW_lx1gVPvso'
+  );
   runApp(ChangeNotifierProvider(create: (context) => ThemeProvider(), child: const MainApp()));
 }
 
