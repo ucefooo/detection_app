@@ -118,7 +118,7 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
 
   Future<void> _initializeCamera() async {
     try {
-      // await _disposeCamera();
+      await _disposeCamera();
       final cameras = await availableCameras();
       if (cameras.isEmpty) {
         throw CameraException(

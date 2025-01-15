@@ -23,6 +23,7 @@ class _NewCaseResultState extends State<NewCaseResult> {
   void initState() {
     super.initState();
     _verifyFile();
+    _initPush();
   }
 
   void _verifyFile() {
@@ -35,6 +36,45 @@ class _NewCaseResultState extends State<NewCaseResult> {
       }
     } catch (e) {
       debugPrint('Error checking image file: $e');
+    }
+  }
+
+  void _initPush() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      pushImageToDataBase();
+    });
+  }
+
+  void pushImageToDataBase() async {
+    try {
+      final numericValue = double.tryParse(widget.results.replaceAll('%', ''));
+
+      if (numericValue == null) {
+        debugPrint('Invalid results format: ${widget.results}');
+        return;
+      }
+
+      // Determine the table to upload the data to
+      final tableName =
+          numericValue < 50 ? 'ResultsNegative' : 'ResultsPositive';
+
+      String fullPath = await Supabase.instance.client.storage
+          .from('Photos')
+          .upload(
+            const Uuid().v4(),
+            File(widget.imageFile.path),
+            fileOptions: const FileOptions(cacheControl: '3600', upsert: false),
+          );
+      final res = Supabase.instance.client.storage
+          .from('Photos')
+          .getPublicUrl(fullPath.split('/').last);
+
+      await Supabase.instance.client.from(tableName).insert({
+        'image': res,
+        'results': widget.results,
+      });
+    } catch (e) {
+      debugPrint('Error occurred: $e');
     }
   }
 
@@ -329,28 +369,6 @@ class _NewCaseResultState extends State<NewCaseResult> {
                                               saved: 0,
                                             ));
                                       });
-                                      String fullPath = await Supabase
-                                          .instance.client.storage
-                                          .from('Photos')
-                                          .upload(
-                                            const Uuid().v4(),
-                                            File(widget.imageFile.path),
-                                            fileOptions: const FileOptions(
-                                                cacheControl: '3600',
-                                                upsert: false),
-                                          );
-                                      final res = Supabase
-                                          .instance.client.storage
-                                          .from('Photos')
-                                          .getPublicUrl(
-                                              fullPath.split('/').last);
-                                      debugPrint(res);
-                                      await Supabase.instance.client
-                                          .from('Result')
-                                          .insert({
-                                        'image': res,
-                                        'results': widget.results,
-                                      });
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -373,28 +391,6 @@ class _NewCaseResultState extends State<NewCaseResult> {
                                               date: DateTime.now(),
                                               saved: 1,
                                             ));
-                                      });
-                                      String fullPath = await Supabase
-                                          .instance.client.storage
-                                          .from('Photos')
-                                          .upload(
-                                            const Uuid().v4(),
-                                            File(widget.imageFile.path),
-                                            fileOptions: const FileOptions(
-                                                cacheControl: '3600',
-                                                upsert: false),
-                                          );
-                                      final res = Supabase
-                                          .instance.client.storage
-                                          .from('Photos')
-                                          .getPublicUrl(
-                                              fullPath.split('/').last);
-                                      debugPrint(res);
-                                      await Supabase.instance.client
-                                          .from('Result')
-                                          .insert({
-                                        'image': res,
-                                        'results': widget.results,
                                       });
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
