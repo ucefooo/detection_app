@@ -58,15 +58,17 @@ class _NewCaseResultState extends State<NewCaseResult> {
       final tableName =
           numericValue < 50 ? 'ResultsNegative' : 'ResultsPositive';
 
+      final bucketName = numericValue < 50 ? 'negative' : 'Photos';
+
       String fullPath = await Supabase.instance.client.storage
-          .from('Photos')
+          .from(bucketName)
           .upload(
             const Uuid().v4(),
             File(widget.imageFile.path),
             fileOptions: const FileOptions(cacheControl: '3600', upsert: false),
           );
       final res = Supabase.instance.client.storage
-          .from('Photos')
+          .from(bucketName)
           .getPublicUrl(fullPath.split('/').last);
 
       await Supabase.instance.client.from(tableName).insert({
